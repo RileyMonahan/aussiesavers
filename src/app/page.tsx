@@ -49,7 +49,7 @@ export default function DetailsPage() {
 
         <section className="hero-photo relative -mx-4 grid grid-cols-[2.3fr_1fr] items-start gap-1 overflow-hidden px-4 pb-0 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
-            <h1 className="text-[22px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-4xl">
+            <h1 className="text-[25px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-4xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
@@ -66,8 +66,8 @@ export default function DetailsPage() {
               width={280}
               height={416}
               priority
-              className="ml-auto h-auto w-[105%] sm:w-full"
-              sizes="(min-width: 640px) 320px, 170px"
+              className="ml-auto h-auto w-[135%] sm:w-[128%]"
+              sizes="(min-width: 640px) 380px, 210px"
             />
           </div>
         </section>
@@ -97,7 +97,7 @@ export default function DetailsPage() {
           <h2 className="text-lg font-extrabold text-brand-green-dark sm:text-2xl">
             Start your free savings check
           </h2>
-          <p className="mt-1 text-sm text-neutral-600 sm:text-base">
+          <p className="mt-1 text-[11px] text-neutral-600 sm:text-base">
             Tell us a few details to get started. It only takes a minute.
           </p>
 

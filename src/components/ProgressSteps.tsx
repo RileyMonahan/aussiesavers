@@ -13,14 +13,14 @@ export default function ProgressSteps({ current }: { current: 1 | 2 | 3 }) {
 
         return (
           <li key={step.number} className="flex items-center">
-            <div className="flex flex-col items-center gap-2 w-20 sm:w-28">
+            <div className="flex flex-col items-center gap-1.5 w-16 sm:w-24">
               <span
                 className={
-                  "flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full text-base sm:text-lg font-bold " +
+                  "flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full text-xs sm:text-lg font-bold " +
                   (state === "done"
                     ? "bg-brand-green text-white"
                     : state === "current"
-                      ? "bg-white text-brand-green-dark ring-[3px] ring-brand-gold"
+                      ? "bg-white text-brand-green-dark ring-2 ring-brand-gold"
                       : "bg-white text-neutral-400 ring-2 ring-neutral-200")
                 }
               >
@@ -28,7 +28,7 @@ export default function ProgressSteps({ current }: { current: 1 | 2 | 3 }) {
                   <svg
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="h-5 w-5 sm:h-6 sm:w-6"
+                    className="h-3.5 w-3.5 sm:h-6 sm:w-6"
                     aria-hidden="true"
                   >
                     <path
@@ -43,7 +43,7 @@ export default function ProgressSteps({ current }: { current: 1 | 2 | 3 }) {
               </span>
               <span
                 className={
-                  "text-center text-xs sm:text-sm font-bold leading-tight " +
+                  "text-center text-[10px] sm:text-sm font-bold leading-tight " +
                   (state === "upcoming"
                     ? "text-neutral-400"
                     : "text-brand-green-dark")
@@ -56,7 +56,7 @@ export default function ProgressSteps({ current }: { current: 1 | 2 | 3 }) {
               <span
                 aria-hidden="true"
                 className={
-                  "mx-0.5 sm:mx-1 mt-[-24px] h-[3px] w-8 sm:w-16 rounded-full " +
+                  "mx-0.5 sm:mx-1 mt-[-20px] h-[2px] w-6 sm:w-16 rounded-full sm:mt-[-24px] " +
                   (step.number < current ? "bg-brand-green" : "bg-neutral-300")
                 }
               />
