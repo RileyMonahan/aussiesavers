@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
-import Mascot from "@/components/Mascot";
 import ProgressSteps from "@/components/ProgressSteps";
 import SiteHeader from "@/components/SiteHeader";
 
@@ -42,54 +42,60 @@ export default function DetailsPage() {
     <div className="flex min-h-full flex-col bg-brand-mint">
       <SiteHeader right={<HamburgerButton />} />
 
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 pb-16 sm:px-6">
-        <div className="pt-2 pb-6">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 pb-10 sm:px-6">
+        <div className="pt-2 pb-4">
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[2fr_1fr] items-start gap-1 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[2fr_1fr] items-start gap-1 overflow-hidden px-4 pb-4 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
-            <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
+            <h1 className="text-[26px] font-extrabold leading-[1.08] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-3 text-base text-neutral-700 sm:mt-4 sm:text-lg">
+            <p className="mt-2 text-sm text-neutral-700 sm:mt-4 sm:text-lg">
               It takes about 30 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
-            <p className="doodle mt-3 text-xl leading-tight sm:mt-6 sm:text-2xl">
+            <p className="doodle mt-2 text-lg leading-tight sm:mt-6 sm:text-2xl">
               Happier homes across
               <br />
               Australia! <span aria-hidden="true">☀️</span>
             </p>
           </div>
           <div className="relative w-full pt-6 sm:pt-10">
-            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-2 text-lg leading-tight sm:text-2xl">
+            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-2 text-base leading-tight sm:text-2xl">
               Same bills.
               <br />
               More living!
             </span>
-            <Mascot
+            <Image
+              src="/mascot/kangaroo-cartoon.png"
+              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              width={280}
+              height={416}
               priority
               className="ml-auto h-auto w-[85%] sm:w-full"
-              sizes="(min-width: 640px) 320px, 150px"
+              sizes="(min-width: 640px) 300px, 150px"
             />
           </div>
         </section>
 
-        <ul className="mt-5 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-3">
+        <ul className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-6 sm:gap-3">
           {TRUST_BADGES.map((badge) => (
             <li
               key={badge.title}
-              className="flex items-center gap-3 rounded-2xl bg-white/70 p-4 shadow-sm ring-1 ring-black/5"
+              className="flex items-center gap-1.5 rounded-xl bg-white/70 p-2 shadow-sm ring-1 ring-black/5 sm:gap-3 sm:rounded-2xl sm:p-4"
             >
               <TrustIcon />
               <div>
-                <p className="text-base font-bold text-brand-green-dark">
+                <p className="text-[11px] font-bold leading-tight text-brand-green-dark sm:text-base">
                   {badge.title}
                 </p>
-                <p className="text-sm text-neutral-600">{badge.subtitle}</p>
+                <p className="hidden text-sm text-neutral-600 sm:block">
+                  {badge.subtitle}
+                </p>
               </div>
             </li>
           ))}
@@ -97,16 +103,16 @@ export default function DetailsPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="mt-6 rounded-[2rem] bg-white p-6 shadow-md ring-1 ring-black/5 sm:p-8"
+          className="mt-4 rounded-[2rem] bg-white p-5 shadow-md ring-1 ring-black/5 sm:p-8"
         >
-          <h2 className="text-xl font-extrabold text-brand-green-dark sm:text-2xl">
+          <h2 className="text-lg font-extrabold text-brand-green-dark sm:text-2xl">
             Start your free savings check
           </h2>
-          <p className="mt-1 text-base text-neutral-600">
+          <p className="mt-1 text-sm text-neutral-600 sm:text-base">
             Tell us a few details to get started. It only takes a minute.
           </p>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4">
             <Field label="First name" htmlFor="firstName" required>
               <input
                 id="firstName"
@@ -129,7 +135,7 @@ export default function DetailsPage() {
             </Field>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-3">
             <Field label="Email" htmlFor="email" required>
               <input
                 id="email"
@@ -142,7 +148,7 @@ export default function DetailsPage() {
             </Field>
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Field label="Mobile number" htmlFor="mobile" required>
               <input
                 id="mobile"
@@ -168,12 +174,12 @@ export default function DetailsPage() {
             </Field>
           </div>
 
-          <fieldset className="mt-7">
+          <fieldset className="mt-5">
             <legend className="text-base font-bold text-neutral-800">
               Which bills would you like us to check?
               <span className="text-brand-red"> *</span>
             </legend>
-            <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="mt-2 grid grid-cols-3 gap-2 sm:gap-3">
               {BILL_TYPES.map((bt) => {
                 const active = billTypes.includes(bt.id);
                 return (
@@ -183,7 +189,7 @@ export default function DetailsPage() {
                     onClick={() => toggleBillType(bt.id)}
                     aria-pressed={active}
                     className={
-                      "flex flex-col items-center gap-1.5 rounded-2xl border-2 px-2 py-4 text-sm font-bold transition-colors sm:flex-row sm:justify-center sm:gap-2 sm:text-base " +
+                      "flex flex-col items-center gap-1.5 rounded-2xl border-2 px-2 py-3 text-sm font-bold transition-colors sm:flex-row sm:justify-center sm:gap-2 sm:text-base " +
                       (active
                         ? "border-brand-green bg-brand-green-light text-brand-green-dark"
                         : "border-neutral-200 bg-white text-neutral-500")
@@ -199,7 +205,7 @@ export default function DetailsPage() {
             </div>
           </fieldset>
 
-          <label className="mt-6 flex items-start gap-3 rounded-2xl bg-brand-green-light/60 p-4">
+          <label className="mt-4 flex items-start gap-3 rounded-2xl bg-brand-green-light/60 p-3.5">
             <input
               type="checkbox"
               checked={consent}
@@ -225,14 +231,14 @@ export default function DetailsPage() {
           <button
             type="submit"
             disabled={billTypes.length === 0 || !consent}
-            className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-5 text-lg font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-xl"
+            className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-lg font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-xl"
           >
             Continue to Upload Bills
             <span aria-hidden="true">→</span>
           </button>
         </form>
 
-        <div className="mt-8 flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+        <div className="mt-5 flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
           <p className="flex items-center gap-1.5 text-sm text-neutral-500">
             <ShieldMiniIcon />
             Trusted by Aussie households across Australia.
