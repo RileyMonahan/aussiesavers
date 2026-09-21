@@ -30,6 +30,7 @@
   --color-brand-red-light: var(--color-brand-red-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-handwriting: var(--font-caveat);
 }
 
 body {
@@ -57,5 +58,21 @@ body {
   .input:focus {
     border-color: var(--color-brand-green);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-green) 20%, transparent);
+  }
+
+  .doodle {
+    font-family: var(--font-handwriting), cursive;
+    color: var(--color-brand-green-dark);
+    line-height: 1.15;
+    transform: rotate(-3deg);
+  }
+
+  .hero-photo {
+    background-image:
+      linear-gradient(to top, rgba(242, 250, 245, 0) 0%, var(--color-brand-mint) 58%),
+      linear-gradient(to right, rgba(242, 250, 245, 0) 45%, var(--color-brand-mint) 90%),
+      url("/hero/skyline.jpg");
+    background-size: cover;
+    background-position: center 85%;
   }
 }

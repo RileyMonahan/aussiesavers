@@ -47,24 +47,29 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="grid grid-cols-1 items-center gap-6 sm:grid-cols-[1.2fr_0.8fr] sm:gap-4">
+        <section className="hero-photo relative -mx-4 grid grid-cols-1 items-end gap-2 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:grid-cols-[1.2fr_0.8fr] sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
             <h1 className="text-3xl font-extrabold leading-tight text-brand-green-dark sm:text-4xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-4 text-base text-neutral-700 sm:text-lg">
-              It takes about 5 minutes, costs nothing, and could put hundreds
+            <p className="mt-4 max-w-md text-base text-neutral-700 sm:text-lg">
+              It takes about 30 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
           </div>
           <div className="mx-auto w-40 sm:w-full">
+            <span className="doodle block text-center text-base leading-tight sm:text-right sm:text-xl">
+              Happier homes across
+              <br />
+              Australia! <span aria-hidden="true">☀️</span>
+            </span>
             <Mascot priority className="h-auto w-full" sizes="(min-width: 640px) 260px, 160px" />
           </div>
         </section>
 
-        <ul className="mt-2 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-3">
+        <ul className="mt-4 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-3">
           {TRUST_BADGES.map((badge) => (
             <li
               key={badge.title}
@@ -196,7 +201,12 @@ export default function DetailsPage() {
               about possible savings.
               <br />
               <span className="text-xs text-neutral-500">
-                We&apos;ll only use your information to provide our service.
+                We&apos;ll only use your information to provide our service,
+                in line with our{" "}
+                <a href="#privacy" className="underline">
+                  Privacy Policy
+                </a>
+                .
               </span>
             </span>
           </label>
@@ -211,10 +221,23 @@ export default function DetailsPage() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-neutral-500">
-          Trusted by Aussie households across Australia. Most households save
-          $600&ndash;$800 per year.
-        </p>
+        <div className="mt-6 flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
+          <p className="flex items-center gap-1.5 text-xs text-neutral-500">
+            <ShieldMiniIcon />
+            Trusted by Aussie households across Australia.
+          </p>
+          <p className="text-xs text-neutral-500">
+            <span className="text-brand-gold-dark" aria-hidden="true">
+              ★★★★★
+            </span>{" "}
+            &ldquo;Most households save $600&ndash;$800 per year.&rdquo;
+          </p>
+          <p className="doodle text-lg">
+            A fairer deal for
+            <br />
+            Aussie households <span aria-hidden="true">♡</span>
+          </p>
+        </div>
       </main>
     </div>
   );
@@ -239,6 +262,14 @@ function Field({
       </label>
       <div className="mt-1">{children}</div>
     </div>
+  );
+}
+
+function ShieldMiniIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 text-brand-green" aria-hidden="true">
+      <path d="M10 1.5 3 4v5.2c0 4.6 3 7.9 7 9.3 4-1.4 7-4.7 7-9.3V4l-7-2.5Z" />
+    </svg>
   );
 }
 

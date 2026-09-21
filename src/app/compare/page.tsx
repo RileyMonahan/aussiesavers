@@ -11,6 +11,36 @@ import {
 
 const TABS: ServiceKey[] = ["electricity", "gas", "internet"];
 
+const PROVIDER_COLORS: Record<string, string> = {
+  AGL: "#0a6ac2",
+  GloBird: "#f2b705",
+  "Origin Energy": "#f2622e",
+  "Tango Energy": "#7c3aed",
+  Telstra: "#0d4ea6",
+  Superloop: "#0ea5a4",
+};
+
+function providerColor(name: string) {
+  return PROVIDER_COLORS[name] ?? "#0f6b42";
+}
+
+function ProviderBadge({ name, size = 40 }: { name: string; size?: number }) {
+  return (
+    <span
+      className="inline-flex shrink-0 items-center justify-center rounded-full font-extrabold text-white"
+      style={{
+        backgroundColor: providerColor(name),
+        width: size,
+        height: size,
+        fontSize: size * 0.42,
+      }}
+      aria-hidden="true"
+    >
+      {name.charAt(0)}
+    </span>
+  );
+}
+
 export default function ComparePage() {
   const [active, setActive] = useState<ServiceKey>("electricity");
   const result = DEMO_COMPARISONS[active];
@@ -45,19 +75,30 @@ export default function ComparePage() {
             <p className="mt-3 text-base text-neutral-700">{result.headline}</p>
           </div>
           <div className="mx-auto w-28 sm:w-full">
+            <span className="doodle block text-center text-base leading-tight sm:text-right sm:text-xl">
+              Lower bills.
+              <br />
+              Brighter tomorrows!
+            </span>
             <Mascot priority className="h-auto w-full" sizes="(min-width: 640px) 200px, 130px" />
           </div>
         </section>
 
         <ul className="mt-4 grid grid-cols-1 gap-2 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-black/5 sm:grid-cols-3">
-          {result.contextItems.map((item) => (
-            <li key={item.label} className="px-2 py-1 text-center sm:text-left">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-400">
-                {item.label}
-              </p>
-              <p className="text-sm font-bold text-brand-green-dark">
-                {item.value}
-              </p>
+          {result.contextItems.map((item, i) => (
+            <li
+              key={item.label}
+              className="flex items-center justify-center gap-2 px-2 py-1 text-center sm:justify-start sm:text-left"
+            >
+              {i === 0 && <ProviderBadge name={result.current.provider} size={26} />}
+              <span>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-400">
+                  {item.label}
+                </p>
+                <p className="text-sm font-bold text-brand-green-dark">
+                  {item.value}
+                </p>
+              </span>
             </li>
           ))}
         </ul>
@@ -89,9 +130,12 @@ export default function ComparePage() {
           <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-red">
             Your current plan
           </span>
-          <p className="mt-3 text-lg font-extrabold text-neutral-900">
-            {result.current.planName}
-          </p>
+          <div className="mt-3 flex items-center gap-3">
+            <ProviderBadge name={result.current.provider} />
+            <p className="text-lg font-extrabold text-neutral-900">
+              {result.current.planName}
+            </p>
+          </div>
           <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-neutral-500">
             Estimated annual cost
           </p>
@@ -107,9 +151,12 @@ export default function ComparePage() {
           <span className="inline-flex items-center gap-1 rounded-full bg-brand-green px-3 py-1 text-xs font-bold text-white">
             🏆 Best deal
           </span>
-          <p className="mt-3 text-lg font-extrabold text-neutral-900">
-            {result.bestDeal.planName}
-          </p>
+          <div className="mt-3 flex items-center gap-3">
+            <ProviderBadge name={result.bestDeal.provider} />
+            <p className="text-lg font-extrabold text-neutral-900">
+              {result.bestDeal.planName}
+            </p>
+          </div>
           <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-neutral-500">
             Estimated annual cost
           </p>

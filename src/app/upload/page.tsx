@@ -33,20 +33,24 @@ export default function UploadPage() {
           <ProgressSteps current={2} />
         </div>
 
-        <section className="grid grid-cols-1 items-center gap-4 sm:grid-cols-[1.3fr_0.7fr]">
+        <section className="hero-photo relative -mx-4 grid grid-cols-1 items-end gap-2 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:grid-cols-[1.3fr_0.7fr] sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
             <h1 className="text-3xl font-extrabold leading-tight text-brand-green-dark sm:text-4xl">
               Upload your
               <br />
               <span className="text-brand-gold-dark">energy bill</span>
             </h1>
-            <p className="mt-3 text-base text-neutral-700">
+            <p className="mt-3 max-w-md text-base text-neutral-700">
               Upload a recent electricity and/or gas bill and we&apos;ll find
-              the best deals for your home.
+              the best deals for your home. It only takes a minute.
             </p>
           </div>
           <div className="mx-auto w-28 sm:w-full">
-            <Mascot className="h-auto w-full" sizes="(min-width: 640px) 200px, 130px" />
+            <span className="doodle block text-center text-base leading-tight sm:text-right sm:text-xl">
+              Same bills.
+              <br />A brighter tomorrow.
+            </span>
+            <Mascot priority className="h-auto w-full" sizes="(min-width: 640px) 200px, 130px" />
           </div>
         </section>
 
