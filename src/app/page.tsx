@@ -43,11 +43,11 @@ export default function DetailsPage() {
       <SiteHeader right={<HamburgerButton />} />
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 pb-10 sm:px-6">
-        <div className="pt-2 pb-4">
+        <div className="pt-2 pb-1">
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[2.3fr_1fr] items-start gap-1 overflow-hidden px-4 pb-0 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[2.3fr_1fr] items-start gap-1 overflow-hidden px-4 pb-0 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-1">
           <div>
             <h1 className="text-[25px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-4xl">
               Let&apos;s see how much
@@ -55,7 +55,7 @@ export default function DetailsPage() {
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
             <p className="mt-2 text-sm text-neutral-700 sm:mt-4 sm:text-lg">
-              It takes about 30 minutes, costs nothing, and could put hundreds
+              It takes about 3 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
           </div>
