@@ -450,15 +450,55 @@ dollars per year.
 
 ## Assets & Inputs Still Needed From Project Owner
 
-- [ ] Kangaroo mascot image asset (final file, transparent background
-      preferred, high-res)
-- [ ] 3 reference screenshots (not present in this repo/session — need to be
-      supplied as files)
+- [x] Kangaroo mascot image asset — received; background removed and stored
+      at `public/mascot/kangaroo.png`, reused via the `Mascot` component on
+      every page.
+- [x] 3 reference screenshots — received (Your Details, Upload Bills,
+      Compare & Save) and used as the Stage 1 visual direction.
 - [ ] Monthly seasonal usage multipliers for electricity (12 months, VIC)
 - [ ] Monthly seasonal usage multipliers for gas (12 months, VIC)
 - [ ] Initial demo/example provider plan data (electricity, gas, internet)
       including affiliate URLs, or confirmation to use placeholder demo data
+      (Stage 1 uses hard-coded placeholder data in `src/lib/demoData.ts`;
+      affiliate links currently point to `https://google.com` as a stand-in)
 - [ ] Confirmation of AI/vision API provider for bill extraction (e.g.
       Claude vision) and API key provisioning approach
 - [ ] Supabase project credentials (or confirmation to scaffold locally
       first with env var placeholders)
+
+## Stage 1 Implementation Notes
+
+Stage 1 (3 pages, visual + navigation) is built:
+
+- Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, scaffolded at the
+  repo root.
+- Brand colors defined as CSS variables/theme tokens in
+  `src/app/globals.css` (`brand-green-dark`, `brand-green`, `brand-gold`,
+  `brand-mint`, `brand-red`, etc).
+- `src/components/Logo.tsx` — text-only wordmark + tagline, no kangaroo icon
+  (per explicit instruction).
+- `src/components/Mascot.tsx` — the single reused kangaroo asset
+  (`public/mascot/kangaroo.png`, transparent background).
+- `src/components/ProgressSteps.tsx` — 3-step progress indicator (used on
+  steps 1 and 2; step 3/results is intentionally kept minimal per the brief).
+- Pages: `src/app/page.tsx` (Your Details), `src/app/upload/page.tsx`
+  (Upload Bills), `src/app/compare/page.tsx` (Compare & Save).
+- `src/lib/demoData.ts` — placeholder comparison data per service
+  (electricity/gas/internet), including a demo `affiliateUrl` field per
+  best-deal offer. Currently all point to `https://google.com` until real
+  affiliate links (Stage 8) and a real provider database (Stage 6) exist.
+- Upload page simulates the "AI reads the bill" step with a short
+  "Analysing your bill…" state before auto-navigating to Compare & Save —
+  this is a Stage 1/4 stand-in for the real extraction pipeline (Stage 7).
+- No cross-page form-state persistence yet (that's Stage 2) — each page is
+  currently self-contained.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
