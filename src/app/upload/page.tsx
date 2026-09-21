@@ -33,36 +33,50 @@ export default function UploadPage() {
           <ProgressSteps current={2} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-1 items-end gap-2 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:grid-cols-[1.3fr_0.7fr] sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[1.7fr_1fr] items-start gap-1 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
-            <h1 className="text-3xl font-extrabold leading-tight text-brand-green-dark sm:text-4xl">
+            <h1 className="text-4xl font-extrabold leading-[1.05] text-brand-green-dark sm:text-6xl">
               Upload your
               <br />
               <span className="text-brand-gold-dark">energy bill</span>
             </h1>
-            <p className="mt-3 max-w-md text-base text-neutral-700">
+            <p className="mt-3 text-base text-neutral-700 sm:mt-4 sm:text-lg">
               Upload a recent electricity and/or gas bill and we&apos;ll find
               the best deals for your home. It only takes a minute.
             </p>
           </div>
-          <div className="mx-auto w-28 sm:w-full">
-            <span className="doodle block text-center text-base leading-tight sm:text-right sm:text-xl">
+          <div className="relative w-full pt-8 sm:pt-14">
+            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-1 text-base leading-tight sm:text-2xl">
               Same bills.
-              <br />A brighter tomorrow.
+              <br />A brighter
+              <br />
+              tomorrow.
             </span>
-            <Mascot priority className="h-auto w-full" sizes="(min-width: 640px) 200px, 130px" />
+            <Mascot
+              priority
+              className="ml-auto h-auto w-[92%] sm:w-full"
+              sizes="(min-width: 640px) 280px, 150px"
+            />
           </div>
         </section>
 
-        <div className="mt-6 rounded-3xl bg-white p-5 shadow-md ring-1 ring-black/5 sm:p-8">
-          <h2 className="text-lg font-extrabold text-brand-green-dark">
-            Upload your bill
-          </h2>
-          <p className="mt-1 text-sm text-neutral-600">
-            Choose a recent electricity or gas bill (from the last 6 months).
-          </p>
+        <div className="mt-6 rounded-[2rem] bg-white p-6 shadow-md ring-1 ring-black/5 sm:p-8">
+          <div className="flex items-center gap-4">
+            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
+              <UploadDocIcon />
+            </span>
+            <div>
+              <h2 className="text-xl font-extrabold text-brand-green-dark sm:text-2xl">
+                Upload your bill
+              </h2>
+              <p className="mt-0.5 text-sm text-neutral-600 sm:text-base">
+                Choose a recent electricity or gas bill (from the last 6
+                months).
+              </p>
+            </div>
+          </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <UploadOption
               icon={<CameraIcon />}
               title="Take a photo"
@@ -95,7 +109,7 @@ export default function UploadPage() {
             onChange={(e) => handleFileChosen(e.target.files?.[0])}
           />
 
-          <p className="mt-3 text-center text-xs text-neutral-500">
+          <p className="mt-4 text-center text-sm text-neutral-500">
             We accept PDF, JPG, PNG (max 10MB)
           </p>
 
@@ -118,13 +132,15 @@ export default function UploadPage() {
             </div>
           )}
 
-          <div className="mt-5 flex items-start gap-3 rounded-2xl bg-neutral-50 p-3">
-            <ShieldIcon />
+          <div className="mt-5 flex items-center gap-4 rounded-2xl bg-neutral-50 p-4">
+            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
+              <ShieldIcon />
+            </span>
             <div>
-              <p className="text-sm font-bold text-neutral-800">
+              <p className="text-base font-bold text-neutral-800">
                 Your information is safe with us
               </p>
-              <p className="text-xs text-neutral-500">
+              <p className="text-sm text-neutral-500">
                 We only use your bill to compare plans. It&apos;s secure and
                 private.
               </p>
@@ -163,14 +179,14 @@ function UploadOption({
       disabled={disabled}
       className="flex items-center gap-3 rounded-2xl bg-brand-green-light/60 p-4 text-left transition hover:bg-brand-green-light disabled:cursor-not-allowed disabled:opacity-50"
     >
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-brand-green">
+      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-brand-green">
         {icon}
       </span>
       <span>
-        <span className="block text-sm font-bold text-brand-green-dark">
+        <span className="block text-base font-bold text-brand-green-dark">
           {title}
         </span>
-        <span className="block text-xs text-neutral-600">{subtitle}</span>
+        <span className="block text-sm text-neutral-600">{subtitle}</span>
       </span>
     </button>
   );
@@ -178,7 +194,7 @@ function UploadOption({
 
 function CameraIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-5 w-5">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-7 w-7">
       <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" />
       <circle cx="12" cy="13" r="3.2" />
     </svg>
@@ -187,16 +203,26 @@ function CameraIcon() {
 
 function FileIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-5 w-5">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-7 w-7">
       <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v5h5M9 13h6M9 16h6" />
     </svg>
   );
 }
 
+function UploadDocIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-8 w-8">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v5h5" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 12v6M9.2 14.5 12 11.7l2.8 2.8" />
+    </svg>
+  );
+}
+
 function ShieldIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="mt-0.5 h-6 w-6 shrink-0 text-brand-green">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-8 w-8">
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3 5 6v5c0 4.5 3 7.7 7 9 4-1.3 7-4.5 7-9V6l-7-3Z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
     </svg>

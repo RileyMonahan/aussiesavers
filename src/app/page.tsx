@@ -47,40 +47,49 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-1 items-end gap-2 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:grid-cols-[1.2fr_0.8fr] sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[2fr_1fr] items-start gap-1 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
-            <h1 className="text-3xl font-extrabold leading-tight text-brand-green-dark sm:text-4xl">
+            <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-4 max-w-md text-base text-neutral-700 sm:text-lg">
+            <p className="mt-3 text-base text-neutral-700 sm:mt-4 sm:text-lg">
               It takes about 30 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
-          </div>
-          <div className="mx-auto w-40 sm:w-full">
-            <span className="doodle block text-center text-base leading-tight sm:text-right sm:text-xl">
+            <p className="doodle mt-3 text-xl leading-tight sm:mt-6 sm:text-2xl">
               Happier homes across
               <br />
               Australia! <span aria-hidden="true">☀️</span>
+            </p>
+          </div>
+          <div className="relative w-full pt-6 sm:pt-10">
+            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-2 text-lg leading-tight sm:text-2xl">
+              Same bills.
+              <br />
+              More living!
             </span>
-            <Mascot priority className="h-auto w-full" sizes="(min-width: 640px) 260px, 160px" />
+            <Mascot
+              priority
+              className="ml-auto h-auto w-[85%] sm:w-full"
+              sizes="(min-width: 640px) 320px, 150px"
+            />
           </div>
         </section>
 
-        <ul className="mt-4 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-3">
+        <ul className="mt-5 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-3">
           {TRUST_BADGES.map((badge) => (
             <li
               key={badge.title}
-              className="flex items-center gap-3 rounded-2xl bg-white/70 p-3 shadow-sm ring-1 ring-black/5"
+              className="flex items-center gap-3 rounded-2xl bg-white/70 p-4 shadow-sm ring-1 ring-black/5"
             >
               <TrustIcon />
               <div>
-                <p className="text-sm font-bold text-brand-green-dark">
+                <p className="text-base font-bold text-brand-green-dark">
                   {badge.title}
                 </p>
-                <p className="text-xs text-neutral-600">{badge.subtitle}</p>
+                <p className="text-sm text-neutral-600">{badge.subtitle}</p>
               </div>
             </li>
           ))}
@@ -88,12 +97,12 @@ export default function DetailsPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="mt-6 rounded-3xl bg-white p-5 shadow-md ring-1 ring-black/5 sm:p-8"
+          className="mt-6 rounded-[2rem] bg-white p-6 shadow-md ring-1 ring-black/5 sm:p-8"
         >
           <h2 className="text-xl font-extrabold text-brand-green-dark sm:text-2xl">
             Start your free savings check
           </h2>
-          <p className="mt-1 text-sm text-neutral-600">
+          <p className="mt-1 text-base text-neutral-600">
             Tell us a few details to get started. It only takes a minute.
           </p>
 
@@ -159,12 +168,12 @@ export default function DetailsPage() {
             </Field>
           </div>
 
-          <fieldset className="mt-6">
-            <legend className="text-sm font-bold text-neutral-800">
+          <fieldset className="mt-7">
+            <legend className="text-base font-bold text-neutral-800">
               Which bills would you like us to check?
               <span className="text-brand-red"> *</span>
             </legend>
-            <div className="mt-2 grid grid-cols-3 gap-2">
+            <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
               {BILL_TYPES.map((bt) => {
                 const active = billTypes.includes(bt.id);
                 return (
@@ -174,13 +183,15 @@ export default function DetailsPage() {
                     onClick={() => toggleBillType(bt.id)}
                     aria-pressed={active}
                     className={
-                      "flex flex-col items-center gap-1 rounded-2xl border-2 px-2 py-3 text-sm font-semibold transition-colors sm:flex-row sm:justify-center sm:gap-2 " +
+                      "flex flex-col items-center gap-1.5 rounded-2xl border-2 px-2 py-4 text-sm font-bold transition-colors sm:flex-row sm:justify-center sm:gap-2 sm:text-base " +
                       (active
                         ? "border-brand-green bg-brand-green-light text-brand-green-dark"
                         : "border-neutral-200 bg-white text-neutral-500")
                     }
                   >
-                    <span aria-hidden="true">{bt.icon}</span>
+                    <span className="text-lg" aria-hidden="true">
+                      {bt.icon}
+                    </span>
                     {bt.label}
                   </button>
                 );
@@ -188,7 +199,7 @@ export default function DetailsPage() {
             </div>
           </fieldset>
 
-          <label className="mt-5 flex items-start gap-3 rounded-2xl bg-brand-green-light/60 p-3">
+          <label className="mt-6 flex items-start gap-3 rounded-2xl bg-brand-green-light/60 p-4">
             <input
               type="checkbox"
               checked={consent}
@@ -196,11 +207,11 @@ export default function DetailsPage() {
               required
               className="mt-0.5 h-5 w-5 shrink-0 rounded border-neutral-300 text-brand-green focus:ring-brand-green"
             />
-            <span className="text-sm text-neutral-700">
+            <span className="text-sm text-neutral-700 sm:text-base">
               I&apos;d like Aussie Savers to compare my bills and contact me
               about possible savings.
               <br />
-              <span className="text-xs text-neutral-500">
+              <span className="text-xs text-neutral-500 sm:text-sm">
                 We&apos;ll only use your information to provide our service,
                 in line with our{" "}
                 <a href="#privacy" className="underline">
@@ -214,25 +225,25 @@ export default function DetailsPage() {
           <button
             type="submit"
             disabled={billTypes.length === 0 || !consent}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-base font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-lg"
+            className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-5 text-lg font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-xl"
           >
             Continue to Upload Bills
             <span aria-hidden="true">→</span>
           </button>
         </form>
 
-        <div className="mt-6 flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="flex items-center gap-1.5 text-xs text-neutral-500">
+        <div className="mt-8 flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+          <p className="flex items-center gap-1.5 text-sm text-neutral-500">
             <ShieldMiniIcon />
             Trusted by Aussie households across Australia.
           </p>
-          <p className="text-xs text-neutral-500">
+          <p className="text-sm text-neutral-500">
             <span className="text-brand-gold-dark" aria-hidden="true">
               ★★★★★
             </span>{" "}
             &ldquo;Most households save $600&ndash;$800 per year.&rdquo;
           </p>
-          <p className="doodle text-lg">
+          <p className="doodle text-xl">
             A fairer deal for
             <br />
             Aussie households <span aria-hidden="true">♡</span>
@@ -256,11 +267,11 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="block text-sm font-bold text-neutral-800">
+      <label htmlFor={htmlFor} className="block text-base font-bold text-neutral-800">
         {label}
         {required && <span className="text-brand-red"> *</span>}
       </label>
-      <div className="mt-1">{children}</div>
+      <div className="mt-1.5">{children}</div>
     </div>
   );
 }
@@ -275,8 +286,8 @@ function ShieldMiniIcon() {
 
 function TrustIcon() {
   return (
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
-      <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
+      <svg viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6" aria-hidden="true">
         <path
           fillRule="evenodd"
           d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.59l-1.3-1.3a1 1 0 0 0-1.4 1.42l2 2a1 1 0 0 0 1.4 0l4-4Z"
