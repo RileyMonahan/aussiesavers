@@ -47,9 +47,9 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[2fr_1fr] items-start gap-1 overflow-hidden px-4 pb-4 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[2.3fr_1fr] items-start gap-1 overflow-hidden px-4 pb-0 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
           <div>
-            <h1 className="text-[26px] font-extrabold leading-[1.08] text-brand-green-dark sm:text-5xl">
+            <h1 className="text-[22px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-4xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
@@ -58,14 +58,14 @@ export default function DetailsPage() {
               It takes about 30 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
-            <p className="doodle mt-2 text-lg leading-tight sm:mt-6 sm:text-2xl">
+            <p className="doodle mt-2 text-base leading-tight sm:mt-6 sm:text-2xl">
               Happier homes across
               <br />
               Australia! <span aria-hidden="true">☀️</span>
             </p>
           </div>
-          <div className="relative w-full pt-6 sm:pt-10">
-            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-2 text-base leading-tight sm:text-2xl">
+          <div className="relative -mb-4 w-full self-end sm:mb-0">
+            <span className="doodle absolute -top-4 left-0 z-10 -translate-x-2 text-sm leading-tight sm:-top-8 sm:text-2xl">
               Same bills.
               <br />
               More living!
@@ -76,24 +76,21 @@ export default function DetailsPage() {
               width={280}
               height={416}
               priority
-              className="ml-auto h-auto w-[85%] sm:w-full"
-              sizes="(min-width: 640px) 300px, 150px"
+              className="ml-auto h-auto w-[105%] sm:w-full"
+              sizes="(min-width: 640px) 320px, 170px"
             />
           </div>
         </section>
 
-        <ul className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-6 sm:gap-3">
+        <ul className="mt-3 flex items-start justify-between gap-x-1 sm:mt-6 sm:gap-x-2">
           {TRUST_BADGES.map((badge) => (
-            <li
-              key={badge.title}
-              className="flex items-center gap-1.5 rounded-xl bg-white/70 p-2 shadow-sm ring-1 ring-black/5 sm:gap-3 sm:rounded-2xl sm:p-4"
-            >
+            <li key={badge.title} className="flex min-w-0 flex-1 items-center gap-1 sm:gap-2">
               <TrustIcon />
-              <div>
-                <p className="text-[11px] font-bold leading-tight text-brand-green-dark sm:text-base">
+              <div className="min-w-0">
+                <p className="text-[9.5px] font-bold leading-[1.15] text-brand-green-dark sm:text-sm">
                   {badge.title}
                 </p>
-                <p className="hidden text-sm text-neutral-600 sm:block">
+                <p className="hidden text-xs text-neutral-600 sm:block">
                   {badge.subtitle}
                 </p>
               </div>
@@ -103,7 +100,7 @@ export default function DetailsPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="mt-4 rounded-[2rem] bg-white p-5 shadow-md ring-1 ring-black/5 sm:p-8"
+          className="mt-4 rounded-[2rem] bg-white p-4 shadow-md ring-1 ring-black/5 sm:p-6"
         >
           <h2 className="text-lg font-extrabold text-brand-green-dark sm:text-2xl">
             Start your free savings check
@@ -174,12 +171,12 @@ export default function DetailsPage() {
             </Field>
           </div>
 
-          <fieldset className="mt-5">
-            <legend className="text-base font-bold text-neutral-800">
+          <fieldset className="mt-4">
+            <legend className="text-sm font-bold text-neutral-800 sm:text-base">
               Which bills would you like us to check?
               <span className="text-brand-red"> *</span>
             </legend>
-            <div className="mt-2 grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="mt-2 grid grid-cols-3 gap-1 sm:gap-3">
               {BILL_TYPES.map((bt) => {
                 const active = billTypes.includes(bt.id);
                 return (
@@ -189,49 +186,46 @@ export default function DetailsPage() {
                     onClick={() => toggleBillType(bt.id)}
                     aria-pressed={active}
                     className={
-                      "flex flex-col items-center gap-1.5 rounded-2xl border-2 px-2 py-3 text-sm font-bold transition-colors sm:flex-row sm:justify-center sm:gap-2 sm:text-base " +
+                      "flex items-center gap-1 rounded-xl border-2 px-1 py-2 text-[11px] font-bold transition-colors sm:gap-2 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-base " +
                       (active
                         ? "border-brand-green bg-brand-green-light text-brand-green-dark"
                         : "border-neutral-200 bg-white text-neutral-500")
                     }
                   >
-                    <span className="text-lg" aria-hidden="true">
+                    <CheckSquare checked={active} />
+                    <span className="text-xs sm:text-lg" aria-hidden="true">
                       {bt.icon}
                     </span>
-                    {bt.label}
+                    <span>{bt.label}</span>
                   </button>
                 );
               })}
             </div>
           </fieldset>
 
-          <label className="mt-4 flex items-start gap-3 rounded-2xl bg-brand-green-light/60 p-3.5">
+          <label className="mt-4 flex items-start gap-2.5">
             <input
               type="checkbox"
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
               required
-              className="mt-0.5 h-5 w-5 shrink-0 rounded border-neutral-300 text-brand-green focus:ring-brand-green"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-neutral-300 text-brand-green focus:ring-brand-green"
             />
-            <span className="text-sm text-neutral-700 sm:text-base">
+            <span className="text-xs text-neutral-700 sm:text-sm">
               I&apos;d like Aussie Savers to compare my bills and contact me
-              about possible savings.
-              <br />
-              <span className="text-xs text-neutral-500 sm:text-sm">
-                We&apos;ll only use your information to provide our service,
-                in line with our{" "}
-                <a href="#privacy" className="underline">
-                  Privacy Policy
-                </a>
-                .
-              </span>
+              about possible savings. We&apos;ll only use your information to
+              provide our service, in line with our{" "}
+              <a href="#privacy" className="underline">
+                Privacy Policy
+              </a>
+              .
             </span>
           </label>
 
           <button
             type="submit"
             disabled={billTypes.length === 0 || !consent}
-            className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-lg font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-xl"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-lg font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-xl"
           >
             Continue to Upload Bills
             <span aria-hidden="true">→</span>
@@ -292,14 +286,38 @@ function ShieldMiniIcon() {
 
 function TrustIcon() {
   return (
-    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
-      <svg viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6" aria-hidden="true">
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green sm:h-9 sm:w-9">
+      <svg viewBox="0 0 20 20" fill="currentColor" className="h-4.5 w-4.5 sm:h-5 sm:w-5" aria-hidden="true">
         <path
           fillRule="evenodd"
           d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.59l-1.3-1.3a1 1 0 0 0-1.4 1.42l2 2a1 1 0 0 0 1.4 0l4-4Z"
           clipRule="evenodd"
         />
       </svg>
+    </span>
+  );
+}
+
+function CheckSquare({ checked }: { checked: boolean }) {
+  return (
+    <span
+      className={
+        "flex h-4 w-4 shrink-0 items-center justify-center rounded border sm:h-5 sm:w-5 " +
+        (checked
+          ? "border-brand-green bg-brand-green"
+          : "border-neutral-300 bg-white")
+      }
+      aria-hidden="true"
+    >
+      {checked && (
+        <svg viewBox="0 0 20 20" fill="white" className="h-3 w-3 sm:h-3.5 sm:w-3.5">
+          <path
+            fillRule="evenodd"
+            d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0l-3.5-3.5a1 1 0 1 1 1.4-1.4l2.8 2.8 6.8-6.8a1 1 0 0 1 1.4 0Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      )}
     </span>
   );
 }
