@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f2faf5;
+  --foreground: #0f2e22;
+
+  /* Aussie Savers brand palette */
+  --color-brand-green-dark: #0b4a34;
+  --color-brand-green: #0f6b42;
+  --color-brand-green-light: #e3f5ea;
+  --color-brand-gold: #f9b912;
+  --color-brand-gold-dark: #e2a300;
+  --color-brand-mint: #f2faf5;
+  --color-brand-mint-deep: #e3f5ea;
+  --color-brand-red: #d3383e;
+  --color-brand-red-light: #fbebec;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-green-dark: var(--color-brand-green-dark);
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-green-light: var(--color-brand-green-light);
+  --color-brand-gold: var(--color-brand-gold);
+  --color-brand-gold-dark: var(--color-brand-gold-dark);
+  --color-brand-mint: var(--color-brand-mint);
+  --color-brand-mint-deep: var(--color-brand-mint-deep);
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-red-light: var(--color-brand-red-light);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-handwriting: var(--font-caveat);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .input {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--color-neutral-300, #d4d4d4);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9375rem;
+    background: white;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .input::placeholder {
+    color: var(--color-neutral-400, #a3a3a3);
+  }
+
+  .input:focus {
+    border-color: var(--color-brand-green);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-green) 20%, transparent);
+  }
+
+  .doodle {
+    font-family: var(--font-handwriting), cursive;
+    color: var(--color-brand-green-dark);
+    line-height: 1.15;
+    transform: rotate(-3deg);
+  }
+
+  .hero-photo {
+    background-image:
+      linear-gradient(to top, rgba(242, 250, 245, 0) 0%, var(--color-brand-mint) 58%),
+      linear-gradient(to right, rgba(242, 250, 245, 0) 45%, var(--color-brand-mint) 90%),
+      url("/hero/skyline.jpg");
+    background-size: cover;
+    background-position: center 85%;
+  }
+}
