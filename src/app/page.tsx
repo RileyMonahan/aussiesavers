@@ -13,9 +13,9 @@ const BILL_TYPES = [
 ] as const;
 
 const TRUST_BADGES = [
-  { title: "100% free", subtitle: "No fees, no obligation" },
-  { title: "No lock-in contracts", subtitle: "You're always in control" },
-  { title: "Secure and private", subtitle: "Your information is safe with us" },
+  { title: "100% free", subtitle: "No fees, no obligation", Icon: TagIcon },
+  { title: "No lock-in contracts", subtitle: "You're always in control", Icon: PeopleIcon },
+  { title: "Secure and private", subtitle: "Your information is safe with us", Icon: LockIcon },
 ];
 
 export default function DetailsPage() {
@@ -58,18 +58,8 @@ export default function DetailsPage() {
               It takes about 30 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
-            <p className="doodle mt-2 text-base leading-tight sm:mt-6 sm:text-2xl">
-              Happier homes across
-              <br />
-              Australia! <span aria-hidden="true">☀️</span>
-            </p>
           </div>
           <div className="relative -mb-4 w-full self-end sm:mb-0">
-            <span className="doodle absolute -top-4 left-0 z-10 -translate-x-2 text-sm leading-tight sm:-top-8 sm:text-2xl">
-              Same bills.
-              <br />
-              More living!
-            </span>
             <Image
               src="/mascot/kangaroo-cartoon.png"
               alt="Aussie Savers kangaroo mascot giving a thumbs up"
@@ -85,7 +75,9 @@ export default function DetailsPage() {
         <ul className="mt-3 flex items-start justify-between gap-x-1 sm:mt-6 sm:gap-x-2">
           {TRUST_BADGES.map((badge) => (
             <li key={badge.title} className="flex min-w-0 flex-1 items-center gap-1 sm:gap-2">
-              <TrustIcon />
+              <TrustIconWrap>
+                <badge.Icon />
+              </TrustIconWrap>
               <div className="min-w-0">
                 <p className="text-[9.5px] font-bold leading-[1.15] text-brand-green-dark sm:text-sm">
                   {badge.title}
@@ -232,18 +224,18 @@ export default function DetailsPage() {
           </button>
         </form>
 
-        <div className="mt-5 flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="flex items-center gap-1.5 text-sm text-neutral-500">
+        <div className="mt-5 flex items-start justify-between gap-2 text-left">
+          <p className="flex min-w-0 flex-1 items-start gap-1 text-[10px] text-neutral-500 sm:items-center sm:gap-1.5 sm:text-sm">
             <ShieldMiniIcon />
-            Trusted by Aussie households across Australia.
+            <span>Trusted by Aussie households across Australia.</span>
           </p>
-          <p className="text-sm text-neutral-500">
+          <p className="min-w-0 flex-1 text-[10px] text-neutral-500 sm:text-sm">
             <span className="text-brand-gold-dark" aria-hidden="true">
               ★★★★★
             </span>{" "}
             &ldquo;Most households save $600&ndash;$800 per year.&rdquo;
           </p>
-          <p className="doodle text-xl">
+          <p className="doodle min-w-0 flex-1 text-sm sm:text-xl">
             A fairer deal for
             <br />
             Aussie households <span aria-hidden="true">♡</span>
@@ -284,17 +276,43 @@ function ShieldMiniIcon() {
   );
 }
 
-function TrustIcon() {
+function TrustIconWrap({ children }: { children: ReactNode }) {
   return (
     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green sm:h-9 sm:w-9">
-      <svg viewBox="0 0 20 20" fill="currentColor" className="h-4.5 w-4.5 sm:h-5 sm:w-5" aria-hidden="true">
-        <path
-          fillRule="evenodd"
-          d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.59l-1.3-1.3a1 1 0 0 0-1.4 1.42l2 2a1 1 0 0 0 1.4 0l4-4Z"
-          clipRule="evenodd"
-        />
-      </svg>
+      {children}
     </span>
+  );
+}
+
+function TagIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 -rotate-45 sm:h-4.5 sm:w-4.5" aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        d="M3 3a1 1 0 0 1 1-1h5.17a1 1 0 0 1 .71.29l7 7a1 1 0 0 1 0 1.42l-5.17 5.17a1 1 0 0 1-1.42 0l-7-7A1 1 0 0 1 3 8.17V3Zm3.5 3.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function PeopleIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-4.5 sm:w-4.5" aria-hidden="true">
+      <path d="M7 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM1 17a6 6 0 0 1 12 0v.5a.5.5 0 0 1-.5.5H1.5a.5.5 0 0 1-.5-.5V17Zm12.2-6.4c2.5.4 4.3 2.4 4.3 5v1a1 1 0 0 1-1 1h-2v-1.5c0-1.8-.8-3.5-2.1-4.6.28-.35.6-.64.8-.9Z" />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-4.5 sm:w-4.5" aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        d="M10 2a4 4 0 0 0-4 4v2H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-1V6a4 4 0 0 0-4-4Zm2 6V6a2 2 0 1 0-4 0v2h4Zm-2 4a1.2 1.2 0 0 1 .6 2.24V16a.6.6 0 1 1-1.2 0v-1.76A1.2 1.2 0 0 1 10 12Z"
+        clipRule="evenodd"
+      />
+    </svg>
   );
 }
 
