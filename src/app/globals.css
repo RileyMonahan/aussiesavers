@@ -71,6 +71,7 @@ body {
     background-image:
       linear-gradient(to top, rgba(242, 250, 245, 0) 0%, var(--color-brand-mint) 58%),
       linear-gradient(to right, rgba(242, 250, 245, 0) 45%, var(--color-brand-mint) 90%),
+      linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)),
       url("/hero/skyline.jpg");
     background-size: cover;
     background-position: center 85%;

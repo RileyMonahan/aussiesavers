@@ -54,20 +54,20 @@ export default function DetailsPage() {
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-3 text-base text-neutral-700 sm:mt-5 sm:text-xl">
+            <p className="mt-3 text-base font-normal text-neutral-800 sm:mt-5 sm:text-xl">
               It takes about 3 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
           </div>
-          <div className="relative -mb-3 w-full self-end pt-14 sm:mb-0 sm:pt-24">
+          <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
             <Image
               src="/mascot/kangaroo-cropped-shirt.png"
               alt="Aussie Savers kangaroo mascot giving a thumbs up"
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-[230%] sm:w-[180%]"
-              sizes="(min-width: 640px) 500px, 290px"
+              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
+              sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
         </section>
