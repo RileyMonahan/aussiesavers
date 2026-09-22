@@ -1,27 +1,53 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, type ReactNode } from "react";
-import Mascot from "@/components/Mascot";
 import ProgressSteps from "@/components/ProgressSteps";
 import SiteHeader from "@/components/SiteHeader";
+
+function formatFileSize(bytes: number) {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 export default function UploadPage() {
   const router = useRouter();
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
   const [analysing, setAnalysing] = useState(false);
 
-  function handleFileChosen(file: File | undefined) {
-    if (!file) return;
-    setFileName(file.name);
+  function handleFilesChosen(fileList: FileList | null) {
+    if (!fileList || fileList.length === 0) return;
+    const incoming = Array.from(fileList);
+    setFiles((prev) => {
+      const existingKeys = new Set(
+        prev.map((f) => `${f.name}-${f.size}-${f.lastModified}`)
+      );
+      const deduped = incoming.filter(
+        (f) => !existingKeys.has(`${f.name}-${f.size}-${f.lastModified}`)
+      );
+      return [...prev, ...deduped];
+    });
+  }
+
+  function removeFile(index: number) {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function handleAnalyse() {
+    if (files.length === 0) return;
     setAnalysing(true);
     // Demo-only: simulate the automatic bill analysis step before moving on.
     window.setTimeout(() => {
       router.push("/compare");
-    }, 1500);
+    }, 2200);
+  }
+
+  if (analysing) {
+    return <AnalysingScreen fileCount={files.length} />;
   }
 
   return (
@@ -29,33 +55,31 @@ export default function UploadPage() {
       <SiteHeader right={<HamburgerButton />} />
 
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 pb-16 sm:px-6">
-        <div className="pt-2 pb-6">
+        <div className="pt-2 pb-1">
           <ProgressSteps current={2} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[1.7fr_1fr] items-start gap-1 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
-            <h1 className="text-4xl font-extrabold leading-[1.05] text-brand-green-dark sm:text-6xl">
+            <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Upload your
               <br />
               <span className="text-brand-gold-dark">energy bill</span>
             </h1>
-            <p className="mt-3 text-base text-neutral-700 sm:mt-4 sm:text-lg">
+            <p className="mt-3 text-base font-normal text-neutral-800 sm:mt-5 sm:text-xl">
               Upload a recent electricity and/or gas bill and we&apos;ll find
               the best deals for your home. It only takes a minute.
             </p>
           </div>
-          <div className="relative w-full pt-8 sm:pt-14">
-            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-1 text-base leading-tight sm:text-2xl">
-              Same bills.
-              <br />A brighter
-              <br />
-              tomorrow.
-            </span>
-            <Mascot
+          <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
+            <Image
+              src="/mascot/kangaroo-cropped-shirt.png"
+              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              width={660}
+              height={942}
               priority
-              className="ml-auto h-auto w-[92%] sm:w-full"
-              sizes="(min-width: 640px) 280px, 150px"
+              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
+              sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
         </section>
@@ -76,19 +100,17 @@ export default function UploadPage() {
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="mt-5 grid grid-cols-2 gap-3">
             <UploadOption
               icon={<CameraIcon />}
               title="Take a photo"
               subtitle="Use your camera"
-              disabled={analysing}
               onClick={() => cameraInputRef.current?.click()}
             />
             <UploadOption
               icon={<FileIcon />}
               title="Upload file"
               subtitle="Choose from your device"
-              disabled={analysing}
               onClick={() => fileInputRef.current?.click()}
             />
           </div>
@@ -98,63 +120,110 @@ export default function UploadPage() {
             type="file"
             accept="image/*"
             capture="environment"
+            multiple
             className="hidden"
-            onChange={(e) => handleFileChosen(e.target.files?.[0])}
+            onChange={(e) => {
+              handleFilesChosen(e.target.files);
+              e.target.value = "";
+            }}
           />
           <input
             ref={fileInputRef}
             type="file"
             accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+            multiple
             className="hidden"
-            onChange={(e) => handleFileChosen(e.target.files?.[0])}
+            onChange={(e) => {
+              handleFilesChosen(e.target.files);
+              e.target.value = "";
+            }}
           />
 
           <p className="mt-4 text-center text-sm text-neutral-500">
-            We accept PDF, JPG, PNG (max 10MB)
+            We accept PDF, JPG, PNG (max 10MB) &mdash; add as many bills as
+            you need
           </p>
 
-          {fileName && (
-            <div
-              className="mt-4 flex items-center gap-3 rounded-2xl bg-brand-green-light p-3 text-sm text-brand-green-dark"
-              role="status"
-            >
-              {analysing ? (
-                <Spinner />
-              ) : (
-                <span className="text-brand-green">✓</span>
-              )}
-              <span className="min-w-0 flex-1 truncate font-semibold">
-                {fileName}
-              </span>
-              <span className="shrink-0 text-xs">
-                {analysing ? "Analysing your bill…" : "Uploaded"}
-              </span>
-            </div>
+          {files.length > 0 && (
+            <ul className="mt-4 space-y-2">
+              {files.map((file, i) => (
+                <li
+                  key={`${file.name}-${file.size}-${file.lastModified}`}
+                  className="flex items-center gap-3 rounded-2xl bg-brand-green-light p-3 text-sm text-brand-green-dark"
+                >
+                  <span className="text-brand-green">✓</span>
+                  <span className="min-w-0 flex-1 truncate font-semibold">
+                    {file.name}
+                  </span>
+                  <span className="shrink-0 text-xs text-brand-green-dark/70">
+                    {formatFileSize(file.size)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeFile(i)}
+                    aria-label={`Remove ${file.name}`}
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-brand-green-dark/60 hover:bg-white/60 hover:text-brand-green-dark"
+                  >
+                    <CloseIcon />
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
 
-          <div className="mt-5 flex items-center gap-4 rounded-2xl bg-neutral-50 p-4">
-            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
-              <ShieldIcon />
-            </span>
-            <div>
-              <p className="text-base font-bold text-neutral-800">
-                Your information is safe with us
-              </p>
-              <p className="text-sm text-neutral-500">
-                We only use your bill to compare plans. It&apos;s secure and
-                private.
-              </p>
-            </div>
-          </div>
+          <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-neutral-500">
+            <ShieldIcon />
+            Your info is safe &mdash; used only to compare plans.
+          </p>
         </div>
 
-        <Link
-          href="/"
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-green-light px-6 py-4 text-base font-bold text-brand-green-dark"
-        >
-          <span aria-hidden="true">←</span> Back
-        </Link>
+        <div className="mt-6 flex gap-3">
+          <Link
+            href="/"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-brand-green-light px-6 py-4 text-base font-bold text-brand-green-dark"
+          >
+            <span aria-hidden="true">←</span> Back
+          </Link>
+          <button
+            type="button"
+            onClick={handleAnalyse}
+            disabled={files.length === 0}
+            className="flex flex-[1.4] items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-base font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Analyse my bills
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
       </main>
+    </div>
+  );
+}
+
+function AnalysingScreen({ fileCount }: { fileCount: number }) {
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-brand-mint px-6 text-center">
+      <div className="relative">
+        <Image
+          src="/mascot/kangaroo-cropped-shirt.png"
+          alt="Aussie Savers kangaroo mascot"
+          width={220}
+          height={314}
+          priority
+          className="h-auto w-40 sm:w-56"
+        />
+      </div>
+      <BigSpinner />
+      <h1 className="mt-6 text-2xl font-extrabold text-brand-green-dark sm:text-3xl">
+        Analysing your bill{fileCount > 1 ? "s" : ""}&hellip;
+      </h1>
+      <p className="mt-2 max-w-xs text-sm text-neutral-600 sm:max-w-sm sm:text-base">
+        We&apos;re reading the details and crunching the numbers. This
+        usually takes less than a minute.
+      </p>
+      <p className="mt-6 flex items-center justify-center gap-1.5 text-xs text-neutral-500">
+        <ShieldIcon />
+        Your info is safe &mdash; used only to compare plans.
+      </p>
     </div>
   );
 }
@@ -177,16 +246,16 @@ function UploadOption({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center gap-3 rounded-2xl bg-brand-green-light/60 p-4 text-left transition hover:bg-brand-green-light disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex flex-col items-center gap-2 rounded-2xl border-2 border-brand-gold/40 bg-white p-4 text-center shadow-sm transition hover:border-brand-gold hover:bg-brand-gold/10 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-row sm:gap-3 sm:text-left"
     >
-      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-brand-green">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-gold/20 text-brand-gold-dark sm:h-14 sm:w-14">
         {icon}
       </span>
       <span>
-        <span className="block text-base font-bold text-brand-green-dark">
+        <span className="block text-sm font-bold text-brand-green-dark sm:text-base">
           {title}
         </span>
-        <span className="block text-sm text-neutral-600">{subtitle}</span>
+        <span className="block text-xs text-neutral-600 sm:text-sm">{subtitle}</span>
       </span>
     </button>
   );
@@ -222,18 +291,26 @@ function UploadDocIcon() {
 
 function ShieldIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-8 w-8">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-4 w-4 shrink-0 text-brand-green">
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3 5 6v5c0 4.5 3 7.7 7 9 4-1.3 7-4.5 7-9V6l-7-3Z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
     </svg>
   );
 }
 
-function Spinner() {
+function BigSpinner() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4 shrink-0 animate-spin text-brand-green">
+    <svg viewBox="0 0 24 24" fill="none" className="mt-6 h-10 w-10 shrink-0 animate-spin text-brand-green">
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
       <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
+      <path strokeLinecap="round" d="M5 5l10 10M15 5 5 15" />
     </svg>
   );
 }

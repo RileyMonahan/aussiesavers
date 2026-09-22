@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import Mascot from "@/components/Mascot";
+import ProgressSteps from "@/components/ProgressSteps";
 import SiteHeader from "@/components/SiteHeader";
 import {
   DEMO_COMPARISONS,
@@ -165,30 +166,31 @@ export default function ComparePage() {
       />
 
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 pb-16 sm:px-6">
-        <section className="grid grid-cols-[1.7fr_1fr] items-start gap-1 pt-2 sm:gap-4">
+        <div className="pt-2 pb-1">
+          <ProgressSteps current={3} />
+        </div>
+
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
             <h1 className="text-2xl font-extrabold leading-[1.15] text-brand-green-dark sm:text-4xl">
               Good news &ndash; you could
             </h1>
-            <p className="text-[44px] font-extrabold leading-[1.05] text-brand-gold-dark sm:text-7xl">
+            <p className="text-[29px] font-extrabold leading-[1.05] text-brand-gold-dark sm:text-7xl">
               save {formatCurrency(saving)} a year
             </p>
-            <p className="mt-2 text-base font-medium text-indigo-900/80 sm:text-lg">
+            <p className="mt-2 text-base font-normal text-neutral-800 sm:text-lg">
               {result.headline}
             </p>
           </div>
-          <div className="relative w-full pt-6 sm:pt-10">
-            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-1 text-base leading-tight sm:text-2xl">
-              Lower bills.
-              <br />
-              Brighter
-              <br />
-              tomorrows!
-            </span>
-            <Mascot
+          <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
+            <Image
+              src="/mascot/kangaroo-cropped-shirt.png"
+              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              width={660}
+              height={942}
               priority
-              className="ml-auto h-auto w-[88%] sm:w-full"
-              sizes="(min-width: 640px) 280px, 150px"
+              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
+              sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
         </section>
