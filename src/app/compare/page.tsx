@@ -146,43 +146,47 @@ export default function ComparePage() {
         </div>
 
         <div className="mx-3 mt-4 rounded-2xl border border-brand-red bg-brand-red-light p-3.5 sm:mx-0 sm:p-4">
-          <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-red sm:text-sm">
-            Your current plan
-          </span>
-          <p className="mt-2 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
-            {result.current.planName}
-          </p>
-          {result.current.provider && result.current.provider !== result.current.planName && (
-            <p className="text-xs font-semibold text-indigo-900/60 sm:text-sm">
-              {result.current.provider}
-            </p>
-          )}
-          <p className="text-2xl font-extrabold text-neutral-900 sm:text-3xl">
-            {formatCurrency(result.current.annualCost)}
-            <span className="text-sm font-semibold text-indigo-900/60">
-              /year
+          <div className="flex items-start justify-between gap-2">
+            <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-red sm:text-sm">
+              Your current plan
             </span>
-          </p>
+            <span className="pt-1 text-[10px] font-semibold text-neutral-400 sm:text-xs">
+              Annual cost
+            </span>
+          </div>
+          <div className="mt-2 flex items-end justify-between gap-2">
+            <p className="min-w-0 text-base font-extrabold text-neutral-900 sm:text-xl">
+              {result.current.planName}
+            </p>
+            <p className="shrink-0 text-xl font-extrabold text-brand-red sm:text-2xl">
+              {formatCurrency(result.current.annualCost)}
+              <span className="text-xs font-semibold text-neutral-500">
+                /year
+              </span>
+            </p>
+          </div>
         </div>
 
         <div className="mx-3 mt-3 rounded-2xl border border-brand-green bg-brand-green-light p-3.5 sm:mx-0 sm:p-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-green px-3 py-1 text-xs font-bold text-white sm:text-sm">
-            🏆 Best deal
-          </span>
-          <p className="mt-2 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
-            {result.bestDeal.planName}
-          </p>
-          {result.bestDeal.provider && result.bestDeal.provider !== result.bestDeal.planName && (
-            <p className="text-xs font-semibold text-indigo-900/60 sm:text-sm">
-              {result.bestDeal.provider}
-            </p>
-          )}
-          <p className="text-2xl font-extrabold text-neutral-900 sm:text-3xl">
-            {formatCurrency(result.bestDeal.annualCost)}
-            <span className="text-sm font-semibold text-indigo-900/60">
-              /year
+          <div className="flex items-start justify-between gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-green px-3 py-1 text-xs font-bold text-white sm:text-sm">
+              🏆 Best deal
             </span>
-          </p>
+            <span className="pt-1 text-[10px] font-semibold text-neutral-400 sm:text-xs">
+              Annual cost
+            </span>
+          </div>
+          <div className="mt-2 flex items-end justify-between gap-2">
+            <p className="min-w-0 text-base font-extrabold text-neutral-900 sm:text-xl">
+              {result.bestDeal.planName}
+            </p>
+            <p className="shrink-0 text-xl font-extrabold text-neutral-900 sm:text-2xl">
+              {formatCurrency(result.bestDeal.annualCost)}
+              <span className="text-xs font-semibold text-neutral-500">
+                /year
+              </span>
+            </p>
+          </div>
 
           <div className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-white/70 px-2 py-2 text-xs font-bold text-brand-green-dark sm:gap-3 sm:px-3 sm:text-sm">
             <span className="inline-flex items-center gap-1 whitespace-nowrap">
