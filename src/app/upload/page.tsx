@@ -7,21 +7,47 @@ import { useRef, useState, type ReactNode } from "react";
 import ProgressSteps from "@/components/ProgressSteps";
 import SiteHeader from "@/components/SiteHeader";
 
+function formatFileSize(bytes: number) {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export default function UploadPage() {
   const router = useRouter();
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
   const [analysing, setAnalysing] = useState(false);
 
-  function handleFileChosen(file: File | undefined) {
-    if (!file) return;
-    setFileName(file.name);
+  function handleFilesChosen(fileList: FileList | null) {
+    if (!fileList || fileList.length === 0) return;
+    const incoming = Array.from(fileList);
+    setFiles((prev) => {
+      const existingKeys = new Set(
+        prev.map((f) => `${f.name}-${f.size}-${f.lastModified}`)
+      );
+      const deduped = incoming.filter(
+        (f) => !existingKeys.has(`${f.name}-${f.size}-${f.lastModified}`)
+      );
+      return [...prev, ...deduped];
+    });
+  }
+
+  function removeFile(index: number) {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function handleAnalyse() {
+    if (files.length === 0) return;
     setAnalysing(true);
     // Demo-only: simulate the automatic bill analysis step before moving on.
     window.setTimeout(() => {
       router.push("/compare");
-    }, 1500);
+    }, 2200);
+  }
+
+  if (analysing) {
+    return <AnalysingScreen fileCount={files.length} />;
   }
 
   return (
@@ -79,14 +105,12 @@ export default function UploadPage() {
               icon={<CameraIcon />}
               title="Take a photo"
               subtitle="Use your camera"
-              disabled={analysing}
               onClick={() => cameraInputRef.current?.click()}
             />
             <UploadOption
               icon={<FileIcon />}
               title="Upload file"
               subtitle="Choose from your device"
-              disabled={analysing}
               onClick={() => fileInputRef.current?.click()}
             />
           </div>
@@ -96,38 +120,55 @@ export default function UploadPage() {
             type="file"
             accept="image/*"
             capture="environment"
+            multiple
             className="hidden"
-            onChange={(e) => handleFileChosen(e.target.files?.[0])}
+            onChange={(e) => {
+              handleFilesChosen(e.target.files);
+              e.target.value = "";
+            }}
           />
           <input
             ref={fileInputRef}
             type="file"
             accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+            multiple
             className="hidden"
-            onChange={(e) => handleFileChosen(e.target.files?.[0])}
+            onChange={(e) => {
+              handleFilesChosen(e.target.files);
+              e.target.value = "";
+            }}
           />
 
           <p className="mt-4 text-center text-sm text-neutral-500">
-            We accept PDF, JPG, PNG (max 10MB)
+            We accept PDF, JPG, PNG (max 10MB) &mdash; add as many bills as
+            you need
           </p>
 
-          {fileName && (
-            <div
-              className="mt-4 flex items-center gap-3 rounded-2xl bg-brand-green-light p-3 text-sm text-brand-green-dark"
-              role="status"
-            >
-              {analysing ? (
-                <Spinner />
-              ) : (
-                <span className="text-brand-green">✓</span>
-              )}
-              <span className="min-w-0 flex-1 truncate font-semibold">
-                {fileName}
-              </span>
-              <span className="shrink-0 text-xs">
-                {analysing ? "Analysing your bill…" : "Uploaded"}
-              </span>
-            </div>
+          {files.length > 0 && (
+            <ul className="mt-4 space-y-2">
+              {files.map((file, i) => (
+                <li
+                  key={`${file.name}-${file.size}-${file.lastModified}`}
+                  className="flex items-center gap-3 rounded-2xl bg-brand-green-light p-3 text-sm text-brand-green-dark"
+                >
+                  <span className="text-brand-green">✓</span>
+                  <span className="min-w-0 flex-1 truncate font-semibold">
+                    {file.name}
+                  </span>
+                  <span className="shrink-0 text-xs text-brand-green-dark/70">
+                    {formatFileSize(file.size)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeFile(i)}
+                    aria-label={`Remove ${file.name}`}
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-brand-green-dark/60 hover:bg-white/60 hover:text-brand-green-dark"
+                  >
+                    <CloseIcon />
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
 
           <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-neutral-500">
@@ -136,13 +177,53 @@ export default function UploadPage() {
           </p>
         </div>
 
-        <Link
-          href="/"
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-green-light px-6 py-4 text-base font-bold text-brand-green-dark"
-        >
-          <span aria-hidden="true">←</span> Back
-        </Link>
+        <div className="mt-6 flex gap-3">
+          <Link
+            href="/"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-brand-green-light px-6 py-4 text-base font-bold text-brand-green-dark"
+          >
+            <span aria-hidden="true">←</span> Back
+          </Link>
+          <button
+            type="button"
+            onClick={handleAnalyse}
+            disabled={files.length === 0}
+            className="flex flex-[1.4] items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-base font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Analyse my bills
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
       </main>
+    </div>
+  );
+}
+
+function AnalysingScreen({ fileCount }: { fileCount: number }) {
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-brand-mint px-6 text-center">
+      <div className="relative">
+        <Image
+          src="/mascot/kangaroo-cropped-shirt.png"
+          alt="Aussie Savers kangaroo mascot"
+          width={220}
+          height={314}
+          priority
+          className="h-auto w-40 sm:w-56"
+        />
+      </div>
+      <BigSpinner />
+      <h1 className="mt-6 text-2xl font-extrabold text-brand-green-dark sm:text-3xl">
+        Analysing your bill{fileCount > 1 ? "s" : ""}&hellip;
+      </h1>
+      <p className="mt-2 max-w-xs text-sm text-neutral-600 sm:max-w-sm sm:text-base">
+        We&apos;re reading the details and crunching the numbers. This
+        usually takes less than a minute.
+      </p>
+      <p className="mt-6 flex items-center justify-center gap-1.5 text-xs text-neutral-500">
+        <ShieldIcon />
+        Your info is safe &mdash; used only to compare plans.
+      </p>
     </div>
   );
 }
@@ -217,11 +298,19 @@ function ShieldIcon() {
   );
 }
 
-function Spinner() {
+function BigSpinner() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4 shrink-0 animate-spin text-brand-green">
+    <svg viewBox="0 0 24 24" fill="none" className="mt-6 h-10 w-10 shrink-0 animate-spin text-brand-green">
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
       <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2} className="h-3.5 w-3.5">
+      <path strokeLinecap="round" d="M5 5l10 10M15 5 5 15" />
     </svg>
   );
 }
