@@ -54,7 +54,7 @@ export default function DetailsPage() {
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-3 text-base text-neutral-700 sm:mt-5 sm:text-xl">
+            <p className="mt-3 text-base font-semibold text-neutral-800 [text-shadow:0_1px_3px_rgba(255,255,255,0.95),0_1px_8px_rgba(255,255,255,0.85),0_0_2px_rgba(255,255,255,0.9)] sm:mt-5 sm:text-xl">
               It takes about 3 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
@@ -66,8 +66,8 @@ export default function DetailsPage() {
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-[230%] sm:w-[180%]"
-              sizes="(min-width: 640px) 500px, 290px"
+              className="ml-auto h-auto w-[280%] sm:w-[180%]"
+              sizes="(min-width: 640px) 500px, 330px"
             />
           </div>
         </section>
