@@ -47,27 +47,27 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[3.2fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
-            <h1 className="text-[27px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
+            <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-3 text-lg text-neutral-700 sm:mt-5 sm:text-xl">
+            <p className="mt-3 text-base text-neutral-700 sm:mt-5 sm:text-xl">
               It takes about 3 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
           </div>
-          <div className="relative -mb-3 w-full self-end sm:mb-0">
+          <div className="relative -mb-3 w-full self-end pt-14 sm:mb-0 sm:pt-24">
             <Image
               src="/mascot/kangaroo-cropped-shirt.png"
               alt="Aussie Savers kangaroo mascot giving a thumbs up"
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-[200%] sm:w-[180%]"
-              sizes="(min-width: 640px) 500px, 270px"
+              className="ml-auto h-auto w-[230%] sm:w-[180%]"
+              sizes="(min-width: 640px) 500px, 290px"
             />
           </div>
         </section>
