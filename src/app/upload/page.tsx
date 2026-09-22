@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import ProgressSteps from "@/components/ProgressSteps";
 import SiteHeader from "@/components/SiteHeader";
 
@@ -43,7 +43,7 @@ export default function UploadPage() {
     // Demo-only: simulate the automatic bill analysis step before moving on.
     window.setTimeout(() => {
       router.push("/compare");
-    }, 2200);
+    }, 15000);
   }
 
   if (analysing) {
@@ -177,10 +177,10 @@ export default function UploadPage() {
           </p>
         </div>
 
-        <div className="mt-6 flex gap-3">
+        <div className="mt-6 flex items-center justify-center gap-3">
           <Link
             href="/"
-            className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-brand-green-light px-6 py-4 text-base font-bold text-brand-green-dark"
+            className="flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl bg-brand-green-light px-5 py-3 text-sm font-bold text-brand-green-dark"
           >
             <span aria-hidden="true">←</span> Back
           </Link>
@@ -188,7 +188,7 @@ export default function UploadPage() {
             type="button"
             onClick={handleAnalyse}
             disabled={files.length === 0}
-            className="flex flex-[1.4] items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-base font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-brand-gold px-6 py-3 text-sm font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
           >
             Analyse my bills
             <span aria-hidden="true">→</span>
@@ -199,7 +199,23 @@ export default function UploadPage() {
   );
 }
 
+const ANALYSIS_STEPS = [
+  "Reading your bill details…",
+  "Identifying your usage and tariffs…",
+  "Comparing 30+ electricity, gas and internet plans…",
+  "Calculating your potential savings…",
+];
+
 function AnalysingScreen({ fileCount }: { fileCount: number }) {
+  const [stepIndex, setStepIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setStepIndex((i) => Math.min(i + 1, ANALYSIS_STEPS.length - 1));
+    }, 15000 / ANALYSIS_STEPS.length);
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-brand-mint px-6 text-center">
       <div className="relative">
@@ -216,9 +232,8 @@ function AnalysingScreen({ fileCount }: { fileCount: number }) {
       <h1 className="mt-6 text-2xl font-extrabold text-brand-green-dark sm:text-3xl">
         Analysing your bill{fileCount > 1 ? "s" : ""}&hellip;
       </h1>
-      <p className="mt-2 max-w-xs text-sm text-neutral-600 sm:max-w-sm sm:text-base">
-        We&apos;re reading the details and crunching the numbers. This
-        usually takes less than a minute.
+      <p className="mt-2 min-h-[3.5rem] max-w-xs text-sm text-neutral-600 sm:max-w-sm sm:text-base">
+        {ANALYSIS_STEPS[stepIndex]}
       </p>
       <p className="mt-6 flex items-center justify-center gap-1.5 text-xs text-neutral-500">
         <ShieldIcon />
@@ -252,7 +267,7 @@ function UploadOption({
         {icon}
       </span>
       <span>
-        <span className="block text-sm font-bold text-brand-green-dark sm:text-base">
+        <span className="block text-sm font-bold text-brand-gold-dark sm:text-base">
           {title}
         </span>
         <span className="block text-xs text-neutral-600 sm:text-sm">{subtitle}</span>
