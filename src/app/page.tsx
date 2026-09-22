@@ -66,7 +66,7 @@ export default function DetailsPage() {
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.69)]"
+              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
               sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
