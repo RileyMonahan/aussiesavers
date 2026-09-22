@@ -47,7 +47,7 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-x-hidden overflow-y-visible px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
             <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
