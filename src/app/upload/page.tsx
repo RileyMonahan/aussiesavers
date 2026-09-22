@@ -177,7 +177,7 @@ export default function UploadPage() {
           </p>
         </div>
 
-        <div className="mt-6 flex gap-3">
+        <div className="mt-6 flex items-center justify-center gap-3">
           <Link
             href="/"
             className="flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl bg-brand-green-light px-5 py-3 text-sm font-bold text-brand-green-dark"
@@ -188,7 +188,7 @@ export default function UploadPage() {
             type="button"
             onClick={handleAnalyse}
             disabled={files.length === 0}
-            className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-brand-gold px-4 py-3 text-sm font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
+            className="flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-brand-gold px-6 py-3 text-sm font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
           >
             Analyse my bills
             <span aria-hidden="true">→</span>
@@ -267,7 +267,7 @@ function UploadOption({
         {icon}
       </span>
       <span>
-        <span className="block text-sm font-bold text-brand-green-dark sm:text-base">
+        <span className="block text-sm font-bold text-brand-gold-dark sm:text-base">
           {title}
         </span>
         <span className="block text-xs text-neutral-600 sm:text-sm">{subtitle}</span>
