@@ -47,42 +47,42 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[2.3fr_1fr] items-start gap-1 overflow-hidden px-4 pb-0 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-1">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.2fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
-            <h1 className="text-[25px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-4xl">
+            <h1 className="text-[27px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-2 text-sm text-neutral-700 sm:mt-4 sm:text-lg">
+            <p className="mt-3 text-lg text-neutral-700 sm:mt-5 sm:text-xl">
               It takes about 3 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
           </div>
-          <div className="relative -mb-4 w-full self-end sm:mb-0">
+          <div className="relative -mb-3 w-full self-end sm:mb-0">
             <Image
               src="/mascot/kangaroo-cropped-shirt.png"
               alt="Aussie Savers kangaroo mascot giving a thumbs up"
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-[135%] sm:w-[128%]"
-              sizes="(min-width: 640px) 380px, 210px"
+              className="ml-auto h-auto w-[200%] sm:w-[180%]"
+              sizes="(min-width: 640px) 500px, 270px"
             />
           </div>
         </section>
 
-        <ul className="mt-3 flex items-start justify-between gap-x-1 sm:mt-6 sm:gap-x-2">
+        <ul className="mt-4 flex items-start justify-between gap-x-1.5 sm:mt-8 sm:gap-x-3">
           {TRUST_BADGES.map((badge) => (
-            <li key={badge.title} className="flex min-w-0 flex-1 items-center gap-1 sm:gap-2">
+            <li key={badge.title} className="flex min-w-0 flex-1 items-center gap-1.5 sm:gap-3">
               <TrustIconWrap>
                 <badge.Icon />
               </TrustIconWrap>
               <div className="min-w-0">
-                <p className="text-[9.5px] font-bold leading-[1.15] text-brand-green-dark sm:text-sm">
+                <p className="text-xs font-bold leading-[1.15] text-brand-green-dark sm:text-base">
                   {badge.title}
                 </p>
-                <p className="hidden text-xs text-neutral-600 sm:block">
+                <p className="hidden text-sm text-neutral-600 sm:block">
                   {badge.subtitle}
                 </p>
               </div>
@@ -278,7 +278,7 @@ function ShieldMiniIcon() {
 
 function TrustIconWrap({ children }: { children: ReactNode }) {
   return (
-    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green sm:h-9 sm:w-9">
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green sm:h-11 sm:w-11">
       {children}
     </span>
   );
@@ -286,7 +286,7 @@ function TrustIconWrap({ children }: { children: ReactNode }) {
 
 function TagIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 -rotate-45 sm:h-4.5 sm:w-4.5" aria-hidden="true">
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 -rotate-45 sm:h-[22px] sm:w-[22px]" aria-hidden="true">
       <path
         fillRule="evenodd"
         d="M3 3a1 1 0 0 1 1-1h5.17a1 1 0 0 1 .71.29l7 7a1 1 0 0 1 0 1.42l-5.17 5.17a1 1 0 0 1-1.42 0l-7-7A1 1 0 0 1 3 8.17V3Zm3.5 3.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"
@@ -298,7 +298,7 @@ function TagIcon() {
 
 function PeopleIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-4.5 sm:w-4.5" aria-hidden="true">
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 sm:h-[22px] sm:w-[22px]" aria-hidden="true">
       <path d="M7 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM1 17a6 6 0 0 1 12 0v.5a.5.5 0 0 1-.5.5H1.5a.5.5 0 0 1-.5-.5V17Zm12.2-6.4c2.5.4 4.3 2.4 4.3 5v1a1 1 0 0 1-1 1h-2v-1.5c0-1.8-.8-3.5-2.1-4.6.28-.35.6-.64.8-.9Z" />
     </svg>
   );
@@ -306,7 +306,7 @@ function PeopleIcon() {
 
 function LockIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 sm:h-4.5 sm:w-4.5" aria-hidden="true">
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 sm:h-[22px] sm:w-[22px]" aria-hidden="true">
       <path
         fillRule="evenodd"
         d="M10 2a4 4 0 0 0-4 4v2H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-1V6a4 4 0 0 0-4-4Zm2 6V6a2 2 0 1 0-4 0v2h4Zm-2 4a1.2 1.2 0 0 1 .6 2.24V16a.6.6 0 1 1-1.2 0v-1.76A1.2 1.2 0 0 1 10 12Z"
