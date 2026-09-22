@@ -61,10 +61,10 @@ export default function DetailsPage() {
           </div>
           <div className="relative -mb-4 w-full self-end sm:mb-0">
             <Image
-              src="/mascot/kangaroo-cartoon.png"
+              src="/mascot/kangaroo-cropped-shirt.png"
               alt="Aussie Savers kangaroo mascot giving a thumbs up"
-              width={280}
-              height={416}
+              width={660}
+              height={942}
               priority
               className="ml-auto h-auto w-[135%] sm:w-[128%]"
               sizes="(min-width: 640px) 380px, 210px"
