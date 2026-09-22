@@ -94,8 +94,8 @@ export default function ComparePage() {
           </div>
           <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
             <Image
-              src="/mascot/kangaroo-cropped-shirt.png"
-              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              src="/mascot/kangaroo-results.png"
+              alt="Aussie Savers kangaroo mascot holding a fan of cash"
               width={660}
               height={942}
               priority

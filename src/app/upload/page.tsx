@@ -73,8 +73,8 @@ export default function UploadPage() {
           </div>
           <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
             <Image
-              src="/mascot/kangaroo-cropped-shirt.png"
-              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              src="/mascot/kangaroo-upload.png"
+              alt="Aussie Savers kangaroo mascot holding up an energy bill"
               width={660}
               height={942}
               priority
@@ -220,8 +220,8 @@ function AnalysingScreen({ fileCount }: { fileCount: number }) {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-brand-mint px-6 text-center">
       <div className="relative">
         <Image
-          src="/mascot/kangaroo-cropped-shirt.png"
-          alt="Aussie Savers kangaroo mascot"
+          src="/mascot/kangaroo-analysing.png"
+          alt="Aussie Savers kangaroo mascot looking through a magnifying glass"
           width={220}
           height={314}
           priority
