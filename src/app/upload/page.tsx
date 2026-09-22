@@ -1,9 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, type ReactNode } from "react";
-import Mascot from "@/components/Mascot";
 import ProgressSteps from "@/components/ProgressSteps";
 import SiteHeader from "@/components/SiteHeader";
 
@@ -29,33 +29,31 @@ export default function UploadPage() {
       <SiteHeader right={<HamburgerButton />} />
 
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 pb-16 sm:px-6">
-        <div className="pt-2 pb-6">
+        <div className="pt-2 pb-1">
           <ProgressSteps current={2} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[1.7fr_1fr] items-start gap-1 overflow-hidden px-4 pb-5 pt-3 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-6">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
-            <h1 className="text-4xl font-extrabold leading-[1.05] text-brand-green-dark sm:text-6xl">
+            <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Upload your
               <br />
               <span className="text-brand-gold-dark">energy bill</span>
             </h1>
-            <p className="mt-3 text-base text-neutral-700 sm:mt-4 sm:text-lg">
+            <p className="mt-3 text-base font-normal text-neutral-800 sm:mt-5 sm:text-xl">
               Upload a recent electricity and/or gas bill and we&apos;ll find
               the best deals for your home. It only takes a minute.
             </p>
           </div>
-          <div className="relative w-full pt-8 sm:pt-14">
-            <span className="doodle absolute -top-1 left-0 z-10 -translate-x-1 text-base leading-tight sm:text-2xl">
-              Same bills.
-              <br />A brighter
-              <br />
-              tomorrow.
-            </span>
-            <Mascot
+          <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
+            <Image
+              src="/mascot/kangaroo-cropped-shirt.png"
+              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              width={660}
+              height={942}
               priority
-              className="ml-auto h-auto w-[92%] sm:w-full"
-              sizes="(min-width: 640px) 280px, 150px"
+              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
+              sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
         </section>
