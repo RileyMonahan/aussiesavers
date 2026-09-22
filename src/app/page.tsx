@@ -47,26 +47,26 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
-          <div>
+        <section className="hero-photo relative -mx-4 min-h-[360px] overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:min-h-[440px] sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
+          <div className="max-w-[68%] sm:max-w-[64%]">
             <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
             </h1>
-            <p className="mt-3 text-base font-semibold text-neutral-800 [text-shadow:0_1px_3px_rgba(255,255,255,0.95),0_1px_8px_rgba(255,255,255,0.85),0_0_2px_rgba(255,255,255,0.9)] sm:mt-5 sm:text-xl">
+            <p className="mt-3 text-base font-semibold text-neutral-800 sm:mt-5 sm:text-xl">
               It takes about 3 minutes, costs nothing, and could put hundreds
               of dollars back in your pocket each year.
             </p>
           </div>
-          <div className="relative -mb-3 w-full self-end pt-14 sm:mb-0 sm:pt-24">
+          <div className="absolute -right-24 top-2 sm:-right-16 sm:top-2">
             <Image
               src="/mascot/kangaroo-cropped-shirt.png"
               alt="Aussie Savers kangaroo mascot giving a thumbs up"
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-[280%] sm:w-[180%]"
+              className="h-[400px] w-auto sm:h-[500px]"
               sizes="(min-width: 640px) 500px, 330px"
             />
           </div>
