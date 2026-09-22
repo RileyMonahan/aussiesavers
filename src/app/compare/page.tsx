@@ -158,7 +158,7 @@ export default function ComparePage() {
             <p className="min-w-0 text-base font-extrabold text-neutral-900 sm:text-xl">
               {result.current.planName}
             </p>
-            <p className="shrink-0 text-xl font-extrabold text-brand-red sm:text-2xl">
+            <p className="shrink-0 text-2xl font-extrabold text-brand-red sm:text-3xl">
               {formatCurrency(result.current.annualCost)}
               <span className="text-xs font-semibold text-neutral-500">
                 /year
@@ -180,7 +180,7 @@ export default function ComparePage() {
             <p className="min-w-0 text-base font-extrabold text-neutral-900 sm:text-xl">
               {result.bestDeal.planName}
             </p>
-            <p className="shrink-0 text-xl font-extrabold text-neutral-900 sm:text-2xl">
+            <p className="shrink-0 text-2xl font-extrabold text-brand-green sm:text-3xl">
               {formatCurrency(result.bestDeal.annualCost)}
               <span className="text-xs font-semibold text-neutral-500">
                 /year
