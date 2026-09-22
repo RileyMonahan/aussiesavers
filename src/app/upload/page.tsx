@@ -74,7 +74,7 @@ export default function UploadPage() {
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="mt-5 grid grid-cols-2 gap-3">
             <UploadOption
               icon={<CameraIcon />}
               title="Take a photo"
@@ -130,20 +130,10 @@ export default function UploadPage() {
             </div>
           )}
 
-          <div className="mt-5 flex items-center gap-4 rounded-2xl bg-neutral-50 p-4">
-            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green">
-              <ShieldIcon />
-            </span>
-            <div>
-              <p className="text-base font-bold text-neutral-800">
-                Your information is safe with us
-              </p>
-              <p className="text-sm text-neutral-500">
-                We only use your bill to compare plans. It&apos;s secure and
-                private.
-              </p>
-            </div>
-          </div>
+          <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-neutral-500">
+            <ShieldIcon />
+            Your info is safe &mdash; used only to compare plans.
+          </p>
         </div>
 
         <Link
@@ -175,16 +165,16 @@ function UploadOption({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center gap-3 rounded-2xl bg-brand-green-light/60 p-4 text-left transition hover:bg-brand-green-light disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex flex-col items-center gap-2 rounded-2xl border-2 border-brand-green-light bg-white p-4 text-center transition hover:border-brand-green hover:bg-brand-green-light/40 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-row sm:gap-3 sm:text-left"
     >
-      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-brand-green">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green sm:h-14 sm:w-14">
         {icon}
       </span>
       <span>
-        <span className="block text-base font-bold text-brand-green-dark">
+        <span className="block text-sm font-bold text-brand-green-dark sm:text-base">
           {title}
         </span>
-        <span className="block text-sm text-neutral-600">{subtitle}</span>
+        <span className="block text-xs text-neutral-600 sm:text-sm">{subtitle}</span>
       </span>
     </button>
   );
@@ -220,7 +210,7 @@ function UploadDocIcon() {
 
 function ShieldIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-8 w-8">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-4 w-4 shrink-0 text-brand-green">
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3 5 6v5c0 4.5 3 7.7 7 9 4-1.3 7-4.5 7-9V6l-7-3Z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
     </svg>
