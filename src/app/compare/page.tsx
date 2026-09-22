@@ -7,146 +7,57 @@ import SiteHeader from "@/components/SiteHeader";
 import {
   DEMO_COMPARISONS,
   formatCurrency,
-  type ServiceKey,
+  type ServiceComparison,
 } from "@/lib/demoData";
 
-const TABS: ServiceKey[] = ["electricity", "gas", "internet"];
+type TabKey = "energy" | "internet";
 
-const FALLBACK_COLORS: Record<string, string> = {
-  "Origin Energy": "#f2622e",
-  "Tango Energy": "#7c3aed",
-  Telstra: "#0d4ea6",
-  Superloop: "#0ea5a4",
-};
-
-const AGL_SWOOSH_LINES: [number, number, number, number][] = [
-  [0, 10, -34, -2],
-  [0, 6, -22, -14],
-  [0, 2, -8, -20],
-  [0, 2, 8, -20],
-  [0, 6, 22, -14],
-  [0, 10, 34, -2],
+const TABS: { key: TabKey; label: string; icon: string }[] = [
+  { key: "energy", label: "Electricity & Gas", icon: "⚡" },
+  { key: "internet", label: "Internet", icon: "📶" },
 ];
 
-function AglMark({ size }: { size: number }) {
-  return (
-    <svg viewBox="-42 -6 84 42" width={size} height={size * 0.55} fill="none">
-      <defs>
-        <linearGradient id="aglGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1e3fd6" />
-          <stop offset="100%" stopColor="#17c2e6" />
-        </linearGradient>
-      </defs>
-      <g stroke="url(#aglGrad)" strokeWidth={6} strokeLinecap="round">
-        {AGL_SWOOSH_LINES.map(([x1, y1, x2, y2], i) => (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />
-        ))}
-      </g>
-    </svg>
-  );
-}
-
-function AglLogo({ size = 64, iconOnly = false }: { size?: number; iconOnly?: boolean }) {
-  if (iconOnly) {
-    return (
-      <span className="inline-flex shrink-0 items-center justify-center" aria-hidden="true">
-        <AglMark size={size} />
-      </span>
-    );
-  }
-  return (
-    <span
-      className="inline-flex shrink-0 flex-col items-center justify-center"
-      style={{ width: size }}
-      aria-hidden="true"
-    >
-      <AglMark size={size} />
-      <span
-        className="font-extrabold text-neutral-900"
-        style={{ fontSize: size * 0.34, lineHeight: 1, marginTop: size * 0.02 }}
-      >
-        agl
-      </span>
-    </span>
-  );
-}
-
-function GloBirdMark({ size }: { size: number }) {
-  return (
-    <svg viewBox="0 0 64 48" width={size} height={size * 0.75} fill="#f7b500">
-      <ellipse cx="34" cy="26" rx="15" ry="10" transform="rotate(-18 34 26)" />
-      <circle cx="17" cy="18" r="6.5" />
-      <path d="M11 17 L4 15 L11 21 Z" />
-      <path d="M46 32 L60 40 L47 24 Z" />
-      <path d="M28 18 C 36 6, 50 2, 58 4 C 48 6, 40 14, 36 24 C 33 20, 30 18, 28 18 Z" />
-    </svg>
-  );
-}
-
-function GloBirdLogo({ size = 64, iconOnly = false }: { size?: number; iconOnly?: boolean }) {
-  if (iconOnly) {
-    return (
-      <span className="inline-flex shrink-0 items-center justify-center" aria-hidden="true">
-        <GloBirdMark size={size} />
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex shrink-0 items-center gap-2" aria-hidden="true">
-      <GloBirdMark size={size} />
-      <span className="leading-[1.05]">
-        <span
-          className="block font-extrabold text-neutral-900"
-          style={{ fontSize: size * 0.32 }}
-        >
-          GloBird
-        </span>
-        <span
-          className="block font-bold text-neutral-700"
-          style={{ fontSize: size * 0.3 }}
-        >
-          energy
-        </span>
-      </span>
-    </span>
-  );
-}
-
-function FallbackLogo({ name, size = 64 }: { name: string; size?: number }) {
-  const color = FALLBACK_COLORS[name] ?? "#0f6b42";
-  return (
-    <span
-      className="inline-flex shrink-0 items-center justify-center rounded-full font-extrabold text-white"
-      style={{
-        backgroundColor: color,
-        width: size,
-        height: size,
-        fontSize: size * 0.42,
-      }}
-      aria-hidden="true"
-    >
-      {name.charAt(0)}
-    </span>
-  );
-}
-
-function ProviderLogo({
-  name,
-  size = 64,
-  iconOnly = false,
-}: {
-  name: string;
-  size?: number;
-  iconOnly?: boolean;
-}) {
-  if (name === "AGL") return <AglLogo size={size} iconOnly={iconOnly} />;
-  if (name === "GloBird") return <GloBirdLogo size={size} iconOnly={iconOnly} />;
-  return <FallbackLogo name={name} size={size * (iconOnly ? 0.55 : 1)} />;
+function buildEnergyComparison(): ServiceComparison {
+  const elec = DEMO_COMPARISONS.electricity;
+  const gas = DEMO_COMPARISONS.gas;
+  return {
+    service: "electricity",
+    label: "Electricity & Gas",
+    icon: "⚡",
+    headline: "Cheaper electricity and gas plans are available for your household.",
+    contextItems: [
+      {
+        label: "Current providers",
+        value: `${elec.current.provider} & ${gas.current.provider}`,
+      },
+      {
+        label: "Usage",
+        value: `${elec.contextItems[1].value} & ${gas.contextItems[1].value}`,
+      },
+      { label: "Network", value: elec.contextItems[2].value },
+    ],
+    current: {
+      provider: "",
+      planName: `${elec.current.provider} & ${gas.current.provider}`,
+      annualCost: elec.current.annualCost + gas.current.annualCost,
+    },
+    bestDeal: {
+      provider: "",
+      planName: `${elec.bestDeal.provider} & ${gas.bestDeal.provider}`,
+      annualCost: elec.bestDeal.annualCost + gas.bestDeal.annualCost,
+      minutesToSwitch: Math.max(
+        elec.bestDeal.minutesToSwitch,
+        gas.bestDeal.minutesToSwitch
+      ),
+      affiliateUrl: elec.bestDeal.affiliateUrl,
+    },
+  };
 }
 
 export default function ComparePage() {
-  const [active, setActive] = useState<ServiceKey>("electricity");
-  const result = DEMO_COMPARISONS[active];
+  const [active, setActive] = useState<TabKey>("energy");
+  const result: ServiceComparison =
+    active === "internet" ? DEMO_COMPARISONS.internet : buildEnergyComparison();
   const saving = result.current.annualCost - result.bestDeal.annualCost;
 
   return (
@@ -196,14 +107,11 @@ export default function ComparePage() {
         </section>
 
         <ul className="mt-4 grid grid-cols-3 gap-1 rounded-[1.75rem] bg-white p-3 shadow-sm ring-1 ring-black/5 sm:gap-3 sm:p-4">
-          {result.contextItems.map((item, i) => (
+          {result.contextItems.map((item) => (
             <li
               key={item.label}
-              className="flex items-center justify-center gap-1.5 px-0.5 py-1 text-center sm:justify-start sm:gap-2.5 sm:text-left"
+              className="flex items-center justify-center px-0.5 py-1 text-center sm:justify-start sm:text-left"
             >
-              {i === 0 && (
-                <ProviderLogo name={result.current.provider} size={22} iconOnly />
-              )}
               <span>
                 <p className="text-[10px] font-semibold text-neutral-400 sm:text-xs">
                   {item.label}
@@ -218,80 +126,71 @@ export default function ComparePage() {
 
         <div className="mt-5 flex gap-2 rounded-2xl bg-white p-1.5 shadow-sm ring-1 ring-black/5">
           {TABS.map((tab) => {
-            const t = DEMO_COMPARISONS[tab];
-            const isActive = tab === active;
+            const isActive = tab.key === active;
             return (
               <button
-                key={tab}
+                key={tab.key}
                 type="button"
-                onClick={() => setActive(tab)}
+                onClick={() => setActive(tab.key)}
                 className={
-                  "flex flex-1 items-center justify-center gap-1.5 rounded-xl px-2 py-3 text-base font-bold transition-colors " +
+                  "flex flex-1 items-center justify-center gap-1.5 rounded-xl px-2 py-3 text-sm font-bold transition-colors sm:text-base " +
                   (isActive
                     ? "bg-brand-gold/20 text-brand-gold-dark ring-2 ring-brand-gold"
                     : "text-neutral-500 hover:bg-neutral-50")
                 }
               >
-                <span aria-hidden="true">{t.icon}</span>
-                {t.label}
+                <span aria-hidden="true">{tab.icon}</span>
+                {tab.label}
               </button>
             );
           })}
         </div>
 
-        <div className="mt-5 rounded-[2rem] border-[3px] border-brand-red bg-brand-red-light p-5 sm:p-6">
-          <span className="inline-block rounded-full bg-white px-3.5 py-1.5 text-sm font-bold text-brand-red">
+        <div className="mt-4 rounded-[1.75rem] border-2 border-brand-red bg-brand-red-light p-4 sm:p-5">
+          <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-red sm:text-sm">
             Your current plan
           </span>
-          <div className="mt-4 flex flex-nowrap items-center gap-3 sm:gap-4">
-            <ProviderLogo name={result.current.provider} size={56} />
-            <span className="hidden h-12 w-px shrink-0 bg-neutral-300/70 sm:block" aria-hidden="true" />
-            <div className="min-w-0">
-              <p className="text-xl font-extrabold text-neutral-900 sm:text-2xl">
-                {result.current.planName}
-              </p>
-              <p className="mt-1 text-sm font-semibold text-indigo-900/60">
-                Estimated annual cost
-              </p>
-              <p className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
-                {formatCurrency(result.current.annualCost)}
-                <span className="text-base font-semibold text-indigo-900/60">
-                  /year
-                </span>
-              </p>
-            </div>
-          </div>
+          <p className="mt-3 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
+            {result.current.planName}
+          </p>
+          {result.current.provider && (
+            <p className="text-xs font-semibold text-indigo-900/60 sm:text-sm">
+              {result.current.provider}
+            </p>
+          )}
+          <p className="mt-1 text-2xl font-extrabold text-neutral-900 sm:text-3xl">
+            {formatCurrency(result.current.annualCost)}
+            <span className="text-sm font-semibold text-indigo-900/60">
+              /year
+            </span>
+          </p>
         </div>
 
-        <div className="mt-4 rounded-[2rem] border-[3px] border-brand-green bg-brand-green-light p-5 sm:p-6">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-green px-3.5 py-1.5 text-sm font-bold text-white">
+        <div className="mt-3 rounded-[1.75rem] border-2 border-brand-green bg-brand-green-light p-4 sm:p-5">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-green px-3 py-1 text-xs font-bold text-white sm:text-sm">
             🏆 Best deal
           </span>
-          <div className="mt-4 flex flex-nowrap items-center gap-3 sm:gap-4">
-            <ProviderLogo name={result.bestDeal.provider} size={56} />
-            <span className="hidden h-12 w-px shrink-0 bg-neutral-300/70 sm:block" aria-hidden="true" />
-            <div className="min-w-0">
-              <p className="text-xl font-extrabold text-neutral-900 sm:text-2xl">
-                {result.bestDeal.planName}
-              </p>
-              <p className="mt-1 text-sm font-semibold text-indigo-900/60">
-                Estimated annual cost
-              </p>
-              <p className="text-3xl font-extrabold text-neutral-900 sm:text-4xl">
-                {formatCurrency(result.bestDeal.annualCost)}
-                <span className="text-base font-semibold text-indigo-900/60">
-                  /year
-                </span>
-              </p>
-            </div>
-          </div>
+          <p className="mt-3 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
+            {result.bestDeal.planName}
+          </p>
+          {result.bestDeal.provider && (
+            <p className="text-xs font-semibold text-indigo-900/60 sm:text-sm">
+              {result.bestDeal.provider}
+            </p>
+          )}
+          <p className="mt-1 text-2xl font-extrabold text-neutral-900 sm:text-3xl">
+            {formatCurrency(result.bestDeal.annualCost)}
+            <span className="text-sm font-semibold text-indigo-900/60">
+              /year
+            </span>
+          </p>
 
-          <div className="mt-5 flex items-center justify-center gap-3 rounded-xl bg-white/70 px-3 py-3 text-sm font-bold text-brand-green-dark sm:text-base">
-            <span className="inline-flex items-center gap-1.5">
+          <div className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-white/70 px-2 py-2.5 text-xs font-bold text-brand-green-dark sm:gap-3 sm:px-3 sm:py-3 sm:text-sm">
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
               <ClockIcon /> {result.bestDeal.minutesToSwitch} min to switch
             </span>
             <span className="text-neutral-300">|</span>
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
               <LeafIcon /> Save {formatCurrency(saving)} a year
             </span>
           </div>
@@ -300,9 +199,9 @@ export default function ComparePage() {
             href={result.bestDeal.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-4 text-lg font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark sm:text-xl"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-3.5 text-base font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark sm:text-lg"
           >
-            Choose {result.bestDeal.provider}
+            Choose {result.bestDeal.provider || result.bestDeal.planName}
             <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -313,7 +212,7 @@ export default function ComparePage() {
 
 function ClockIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-4 w-4">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-3.5 w-3.5 shrink-0">
       <circle cx="10" cy="10" r="7.5" />
       <path strokeLinecap="round" d="M10 6v4l2.5 2" />
     </svg>
@@ -322,7 +221,7 @@ function ClockIcon() {
 
 function LeafIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+    <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5 shrink-0">
       <path d="M16 4c-6.5 0-11 4.2-11 10.5 0 .5 0 1 .1 1.5 6-1 10-4.7 10.9-9.5-1.8 4-5.3 6.8-9.8 7.7.6.2 1.2.3 1.8.3C13.5 14.5 16 10.7 16 4Z" />
     </svg>
   );
