@@ -67,8 +67,8 @@ export const DEMO_COMPARISONS: Record<ServiceKey, ServiceComparison> = {
       annualCost: 780,
     },
     bestDeal: {
-      provider: "Tango Energy",
-      planName: "Tango Gas Saver",
+      provider: "GloBird",
+      planName: "GloBird Gas Saver",
       annualCost: 650,
       minutesToSwitch: 10,
       affiliateUrl: "https://google.com",

@@ -37,18 +37,17 @@ function buildEnergyComparison(): ServiceComparison {
       { label: "Network", value: elec.contextItems[2].value },
     ],
     current: {
-      provider: "",
+      provider: `${elec.current.provider} & ${gas.current.provider}`,
       planName: `${elec.current.provider} & ${gas.current.provider}`,
       annualCost: elec.current.annualCost + gas.current.annualCost,
     },
+    // Best deal is always a single dual-fuel retailer — a household
+    // switches to one provider for both electricity and gas, not two.
     bestDeal: {
-      provider: "",
-      planName: `${elec.bestDeal.provider} & ${gas.bestDeal.provider}`,
+      provider: elec.bestDeal.provider,
+      planName: elec.bestDeal.provider,
       annualCost: elec.bestDeal.annualCost + gas.bestDeal.annualCost,
-      minutesToSwitch: Math.max(
-        elec.bestDeal.minutesToSwitch,
-        gas.bestDeal.minutesToSwitch
-      ),
+      minutesToSwitch: elec.bestDeal.minutesToSwitch,
       affiliateUrl: elec.bestDeal.affiliateUrl,
     },
   };
@@ -146,19 +145,19 @@ export default function ComparePage() {
           })}
         </div>
 
-        <div className="mt-4 rounded-[1.75rem] border-2 border-brand-red bg-brand-red-light p-4 sm:p-5">
+        <div className="mx-3 mt-4 rounded-2xl border border-brand-red bg-brand-red-light p-3.5 sm:mx-0 sm:p-4">
           <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-red sm:text-sm">
             Your current plan
           </span>
-          <p className="mt-3 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
+          <p className="mt-2 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
             {result.current.planName}
           </p>
-          {result.current.provider && (
+          {result.current.provider && result.current.provider !== result.current.planName && (
             <p className="text-xs font-semibold text-indigo-900/60 sm:text-sm">
               {result.current.provider}
             </p>
           )}
-          <p className="mt-1 text-2xl font-extrabold text-neutral-900 sm:text-3xl">
+          <p className="text-2xl font-extrabold text-neutral-900 sm:text-3xl">
             {formatCurrency(result.current.annualCost)}
             <span className="text-sm font-semibold text-indigo-900/60">
               /year
@@ -166,26 +165,26 @@ export default function ComparePage() {
           </p>
         </div>
 
-        <div className="mt-3 rounded-[1.75rem] border-2 border-brand-green bg-brand-green-light p-4 sm:p-5">
+        <div className="mx-3 mt-3 rounded-2xl border border-brand-green bg-brand-green-light p-3.5 sm:mx-0 sm:p-4">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-green px-3 py-1 text-xs font-bold text-white sm:text-sm">
             🏆 Best deal
           </span>
-          <p className="mt-3 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
+          <p className="mt-2 whitespace-nowrap text-lg font-extrabold text-neutral-900 sm:text-2xl">
             {result.bestDeal.planName}
           </p>
-          {result.bestDeal.provider && (
+          {result.bestDeal.provider && result.bestDeal.provider !== result.bestDeal.planName && (
             <p className="text-xs font-semibold text-indigo-900/60 sm:text-sm">
               {result.bestDeal.provider}
             </p>
           )}
-          <p className="mt-1 text-2xl font-extrabold text-neutral-900 sm:text-3xl">
+          <p className="text-2xl font-extrabold text-neutral-900 sm:text-3xl">
             {formatCurrency(result.bestDeal.annualCost)}
             <span className="text-sm font-semibold text-indigo-900/60">
               /year
             </span>
           </p>
 
-          <div className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-white/70 px-2 py-2.5 text-xs font-bold text-brand-green-dark sm:gap-3 sm:px-3 sm:py-3 sm:text-sm">
+          <div className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-white/70 px-2 py-2 text-xs font-bold text-brand-green-dark sm:gap-3 sm:px-3 sm:text-sm">
             <span className="inline-flex items-center gap-1 whitespace-nowrap">
               <ClockIcon /> {result.bestDeal.minutesToSwitch} min to switch
             </span>
@@ -199,7 +198,7 @@ export default function ComparePage() {
             href={result.bestDeal.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gold px-6 py-3.5 text-base font-extrabold text-neutral-900 shadow-sm transition hover:bg-brand-gold-dark sm:text-lg"
+            className="mt-3 flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-brand-gold px-5 py-2.5 text-sm font-extrabold text-brand-green-dark shadow-sm transition hover:bg-brand-gold-dark sm:text-base"
           >
             Choose {result.bestDeal.provider || result.bestDeal.planName}
             <span aria-hidden="true">→</span>
