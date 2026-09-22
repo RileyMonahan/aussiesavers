@@ -165,9 +165,9 @@ function UploadOption({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex flex-col items-center gap-2 rounded-2xl border-2 border-brand-green-light bg-white p-4 text-center transition hover:border-brand-green hover:bg-brand-green-light/40 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-row sm:gap-3 sm:text-left"
+      className="flex flex-col items-center gap-2 rounded-2xl border-2 border-brand-gold/40 bg-white p-4 text-center shadow-sm transition hover:border-brand-gold hover:bg-brand-gold/10 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-row sm:gap-3 sm:text-left"
     >
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-green-light text-brand-green sm:h-14 sm:w-14">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-gold text-brand-green-dark sm:h-14 sm:w-14">
         {icon}
       </span>
       <span>
