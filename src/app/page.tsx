@@ -47,7 +47,7 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-hidden px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-x-hidden overflow-y-visible px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
           <div>
             <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
@@ -61,12 +61,12 @@ export default function DetailsPage() {
           </div>
           <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
             <Image
-              src="/mascot/kangaroo-cropped-shirt.png"
-              alt="Aussie Savers kangaroo mascot giving a thumbs up"
+              src="/mascot/kangaroo-details.png"
+              alt="Aussie Savers kangaroo mascot reaching out a hand, welcoming you in"
               width={660}
               height={942}
               priority
-              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
+              className="ml-auto h-auto w-full origin-bottom [transform:scale(1.4)]"
               sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
