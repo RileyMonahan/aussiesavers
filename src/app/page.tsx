@@ -47,9 +47,9 @@ export default function DetailsPage() {
           <ProgressSteps current={1} />
         </div>
 
-        <section className="hero-photo relative -mx-4 overflow-hidden px-4 pb-3 pt-4 sm:mx-0 sm:rounded-3xl sm:px-8 sm:pt-6 sm:pb-4">
-          <div className="max-w-[72%] sm:max-w-[78%]">
-            <h1 className="text-[26px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
+        <section className="hero-photo relative -mx-4 grid grid-cols-[3.6fr_1fr] items-start gap-1 overflow-x-hidden overflow-y-visible px-4 pb-3 pt-0 sm:mx-0 sm:gap-4 sm:rounded-3xl sm:px-8 sm:pt-2 sm:pb-4">
+          <div>
+            <h1 className="text-[28px] font-extrabold leading-[1.1] text-brand-green-dark sm:text-5xl">
               Let&apos;s see how much
               <br />
               <span className="text-brand-gold-dark">you could save</span>
@@ -59,14 +59,14 @@ export default function DetailsPage() {
               of dollars back in your pocket each year.
             </p>
           </div>
-          <div className="absolute bottom-0 right-2 w-[30%] sm:right-8 sm:w-[20%]">
+          <div className="relative -mb-3 w-full self-end overflow-visible pt-14 sm:mb-0 sm:pt-24">
             <Image
               src="/mascot/kangaroo-details.png"
               alt="Aussie Savers kangaroo mascot reaching out a hand, welcoming you in"
               width={660}
               height={942}
               priority
-              className="h-auto w-full"
+              className="ml-auto h-auto w-full origin-bottom-left [transform:scale(1.4)]"
               sizes="(min-width: 640px) 320px, 180px"
             />
           </div>
